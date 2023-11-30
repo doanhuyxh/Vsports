@@ -1,0 +1,98 @@
+﻿<div id="AppVueUser" class="row">
+    <div class="col-12 d-flex justify-content-start">
+        <div class="d-flex justify-content-between">
+            <div v-on:click="AddUser()" class="btn btn-success m-1"><i class="fas fa-plus-circle" style="color: #9a3513;"></i></div>
+            <div class="bg-success p-1 rounded-4 d-flex">
+                <input type="number" class="form-control" v-model="ManyUserAdd" placeholder="Số lượng người dùng thêm hàng loạt" />
+                <span v-on:click="AddMany()" class="btn btn-warning"><i class="fas fa-plus-circle" style="color: #9a3513;"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-lg-2 col-12">
+        <table class="table table-striped stripe" id="tableUser">
+            <thead class="text-dark">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Họ Tên</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">SĐT</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tr v-for="(item, index) in data">
+                <td class="text-center">{{index+1}}</td>
+                <td class="text-center">{{item.fullName}}</td>
+                <td class="text-center">{{item.email}}</td>
+                <td class="text-center">{{item.phoneNumber}}</td>
+                <td class="text-center">
+                    <span v-if="item.isActive" v-on:click="ChangeActive(item.id)" class="btn btn-success"><i class="fas fa-toggle-on" style="color: #0adb49;"></i></span>
+                    <span v-else class="btn btn-danger" v-on:click="ChangeActive(item.id)"><i class="fas fa-toggle-off" style="color: #3f1503;"></i></span>
+                </td>
+                <td class="text-center">
+                    <span class="btn btn-info" v-on:click="ViewUser(item.id)"><i class="fas fa-eye" style="color: #1920e6;"></i></span>
+                    <span class="btn btn-warning" v-on:click="EditUser(item.id)">Cập nhật</span>
+                    <span class="btn btn-danger" v-on:click="DeleteUser(item.id)">Xóa</span>
+                </td>
+            </tr>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    var AppVueUser = new Vue({
+        el: "#AppVueUser",
+        data: {
+            data: [],
+            loadDataTable: false,
+            ManyUserAdd: null
+        },
+        computed: {
+
+        },
+        mounted() {
+            this.initData();
+        },
+        methods: {
+            initData() {
+                fetch("/Admin/UserManager/GetData")
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.statusCode == 200) {
+                            this.data = data.data;
+                            dataTableJS("tableUser")
+                        }
+                    })
+            },
+            AddUser() {
+
+            },
+            AddMany() {
+                if (Number.isInteger(this.ManyUserAdd)) {
+                    console.log("this.ManyUserAdd", this.ManyUserAdd)
+                    return;
+                }
+                fetch(`/Admin/UserManager/AddManyUser?number=${this.ManyUserAdd}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.statusCode == 200) {
+                            window.location.reload();
+                        }
+                    })
+            },
+            EditUser(id) {
+
+            },
+            DeleteUser(id) {
+
+            },
+            ChangeActive(id) {
+
+            },
+            ViewUser(id) {
+
+            }
+        }
+    })
+</script>

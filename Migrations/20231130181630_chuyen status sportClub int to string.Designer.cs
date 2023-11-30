@@ -12,8 +12,8 @@ using vsports.Data;
 namespace vsports.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231129223717_initDB")]
-    partial class initDB
+    [Migration("20231130181630_chuyen status sportClub int to string")]
+    partial class chuyenstatussportClubinttostring
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -458,6 +458,10 @@ namespace vsports.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AvatarImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("BackgroudImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -498,10 +502,7 @@ namespace vsports.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ÁvatarImage")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

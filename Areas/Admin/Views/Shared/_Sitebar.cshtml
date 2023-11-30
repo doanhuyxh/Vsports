@@ -2,11 +2,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Admin</div>
     </a>
 
     <!-- Divider -->
@@ -14,10 +14,30 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/admin">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
+    </li>
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Tai nguyên
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-warehouse"></i>
+            <span>Trang</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/Admin/Sport/Index">Môn thể thao</a>
+                <a class="collapse-item" href="/Admin/SportClub/Index">Câu lạc bộ</a>
+            </div>
+        </div>
     </li>
 
     <!-- Heading -->
@@ -27,19 +47,17 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-           aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2"
+           aria-expanded="true" aria-controls="collapsePages2">
             <i class="fas fa-user-cog"></i>
-            <span>Trang</span>
+            <span>Khách hàng</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/Admin/UserManagement/Manager">Quản trị viên</a>
-                <a class="collapse-item" href="/Admin/UserManagement/Customer">Người dùng</a>
+                <a class="collapse-item" href="/Admin/UserManager/Index">Người dùng</a>
             </div>
         </div>
     </li>
-
 
 
     <!-- Divider -->

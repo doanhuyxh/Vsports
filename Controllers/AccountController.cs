@@ -122,7 +122,7 @@ namespace vsports.Controllers
 				if (result.Succeeded)
 				{
 					// Set role member
-					await _userManager.AddToRoleAsync(user, "Member");
+					await _userManager.AddToRoleAsync(user, "User");
 					// Automatically sign in the user
 					await _signInManager.SignInAsync(user, isPersistent: false);
 

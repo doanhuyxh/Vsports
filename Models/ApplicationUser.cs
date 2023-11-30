@@ -7,7 +7,6 @@ namespace vsports.Models
     {
         [Key]
         public override string Id { get; set; } = Guid.NewGuid().ToString();
-
         public string avatarImage { get; set; } = string.Empty;
         public string backgroudImage { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;

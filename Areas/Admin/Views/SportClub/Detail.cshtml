@@ -1,0 +1,47 @@
+﻿@model vsports.Models.SportClubVM.SportClubVM
+
+<table class="table table-responsive">
+    <tbody>
+        <tr>
+            <th class="text-nowrap">avatar</th>
+            <td><img src="@Model.AvatarImage" width="50"/></td>
+        </tr>
+        <tr>
+            <th class="text-nowrap">ảnh bìa</th>
+            <td><img src="@Model.BackgroudImage" width="180"/></td>
+        </tr>
+        <tr>
+            <th class="text-nowrap">Tên câu lạc bộ</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Môn thể thao</th>
+            <td>@Model.SportName</td>
+        </tr>
+        <tr>
+            <th>Huấn luyện viên</th>
+            <td>@Model.SportName</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <th>Điểm xếp hạng</th>
+            <td>@Model.Point</td>
+        </tr>
+        <tr>
+            <th>Mô tả</th>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <th>Quy định</th>
+            <td>@Model.ClubRules</td>
+        </tr>
+
+    </tbody>
+</table>

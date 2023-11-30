@@ -1,0 +1,136 @@
+﻿﻿<div id="AppVueSportClud" class="row">
+    <div class="col-12 row">
+        <div class="col-3"><div v-on:click="AddSport()" class="btn btn-success">Thêm câu lạc bộ</div></div>
+    </div>
+    <div class="container mt-lg-2 col-12">
+        <table class="table table-striped" id="tableSport">
+            <thead class="text-dark">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Tên</th>
+                    <th class="text-center">người sỡ hữu</th>
+                    <th class="text-center">thể thao</th>
+                    <th class="text-center">trang thái</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tr v-for="(item, index) in data">
+                <td class="text-center">{{index+1}}</td>
+                <td class="text-center">{{item.name}}</td>
+                <td class="text-center">{{item.ownerName}}</td>
+                <td class="text-center">{{item.sportName}}</td>
+                <td class="text-center">{{item.status}}</td>
+                <td class="text-center">
+                    <span class="btn btn-info" v-on:click="View(item.id)"><i class="fas fa-eye" style="color: #1920e6;"></i></span>
+                    <span class="btn btn-warning" v-on:click="EditSport(item.id)">Cập nhật</span>
+                    <span class="btn btn-danger" v-on:click="DeleteSport(item.id)">Xóa</span>
+                </td>
+            </tr>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var AppVueSportClud = new Vue({
+        el: "#AppVueSportClud",
+        data: {
+            data: [],
+        },
+        computed: {
+
+        },
+        mounted() {
+            this.initData();
+        },
+        methods: {
+            initData() {
+                fetch("/Admin/SportClub/GetData")
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.statusCode == 200) {
+                            this.data = data.data;
+                        }
+                    })
+            },
+            AddSport() {
+                $("#SmallModelContent").load(`/Admin/SportClub/AddEditData?id=0`, function () {
+                    $("#staticSmallModel").modal("show");
+                    $("#staticSmallModellTitle").html("Thêm câu lạc bộ mới")
+                })
+            },
+            EditSport(id) {
+                $("#SmallModelContent").load(`/Admin/SportClub/AddEditData?id=${id}`, function () {
+                    $("#staticSmallModel").modal("show");
+                    $("#staticSmallModellTitle").html("Cập nhật")
+                })
+            },
+            DeleteSport(id) {
+                let custhis = this;
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muốn xóa ?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                    showCancelButton: true,
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/Admin/SportClub/DeleteData?id=${id}`, {
+                            method: "DELETE"
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.statusCode) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: "Thành công",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then((res) => { custhis.initData() });
+                                }
+                            })
+                    }
+                })
+            },
+            View(id) {
+                $("#BigModelContent").load(`/Admin/SportClub/Detail?id=${id}`, function () {
+                    HiddenSave()
+                    $("#staticBigModel").modal("show");
+                    $("#staticBigModellTitle").html("Chi tiết")
+                })
+            }
+        }
+    });
+
+    function SaveSmall() {
+        let _data = new FormData()
+        _data.append("Id", $("#Id").val())
+        _data.append("Created", $("#Created").val())
+        _data.append("IsDelete", $("#IsDelete").val())
+
+
+        fetch("/Admin/Sport/SaveData", {
+            method: "POST",
+            headers: {
+                processData: false,
+                contentType: false,
+            },
+            body: _data
+        })
+            .then(res => res.json())
+            .then(data => {
+                $('#staticSmallModel').modal('hide');
+                Swal.fire({
+                    title: "Thành công",
+                    icon: 'info',
+                }).then(res => {
+                    AppVueSport.initData();
+                });
+            })
+    }
+</script>

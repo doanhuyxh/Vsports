@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace vsports.Migrations
 {
     /// <inheritdoc />
-    public partial class initDB : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -223,7 +223,7 @@ namespace vsports.Migrations
                     SportId = table.Column<int>(type: "int", nullable: false),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SportsCoach = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ÁvatarImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AvatarImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BackgroudImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
