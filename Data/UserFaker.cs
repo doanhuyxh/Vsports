@@ -14,7 +14,7 @@ namespace vsports.Data
 				.RuleFor(u => u.Email, (f, u) => u.UserName.ToLower() + "@fake.com")
 				.RuleFor(u => u.NormalizedEmail, (f, o) => o.Email.ToUpper())
 				.RuleFor(u => u.EmailConfirmed, f => true)
-				.RuleFor(u => u.PasswordHash, "12345678")
+				.RuleFor(u => u.PasswordHash, "AQAAAAEAACcQAAAAEHFauMu7lPYi+MCSLwtsEfdaZXbxNcYCEltkhD3sDYNn9tkYkPA0ijwpGJM5LqdShQ==")
 				.RuleFor(u => u.SecurityStamp, Guid.NewGuid().ToString())
 				.RuleFor(u => u.ConcurrencyStamp, Guid.NewGuid().ToString())
 				.RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber())

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using vsports.Data;
+using vsports.Middleware;
 using vsports.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -113,6 +114,20 @@ app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
+
+app.Use(async (context, next) =>
+{
+    context.Response.OnStarting(state =>
+    {
+        var httpContext = (HttpContext)state;
+        httpContext.Response.Headers.Remove("Server");
+        httpContext.Response.Headers.Remove("X-Powered-By");
+        return Task.CompletedTask;
+    }, context);
+
+    await next();
+});
+
 
 app.UseStaticFiles(new StaticFileOptions
 {

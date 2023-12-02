@@ -1,0 +1,12 @@
+[
+  {
+    "outputFile": "wwwroot/css/user.css",
+    "inputFile": "wwwroot/scss/user.scss",
+    "minify": { "enabled": false }
+  },
+  {
+    "outputFile": "wwwroot/css/admin.css",
+    "inputFile": "wwwroot/scss/admin.scss",
+    "minify": { "enabled": false }
+  }
+]

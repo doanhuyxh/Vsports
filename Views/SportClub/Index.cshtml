@@ -1,0 +1,27 @@
+﻿@model List<vsports.Models.SportClubVM.SportClubVM>;
+
+<div class="row">
+    <div class="col-3">
+        <ul class="list-group mt-2">
+            <li class="list-group-item active pointer" aria-current="true">Câu lạc bộ</li>
+            <li class="list-group-item pointer" aria-current="true">Câu lạc bộ nổi bật</li>
+        </ul>
+    </div>
+    <div class="col-9 row">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card pointer mb-3" style="width: 12rem;">
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img src="@item.AvatarImage" class="mt-2" style="width:5em; border-radius: 48%" alt="avatar">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-center">@item.Name</h5>
+                        <p class="card-text">Chưa có thành viên</p>
+                        <a href="/SportClub/@item.Id" class="btn btn-primary m-auto">Chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

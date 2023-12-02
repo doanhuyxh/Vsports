@@ -1,0 +1,34 @@
+﻿@model vsports.Models.SportClubVM.SportClubVM;
+
+
+<div class="row">
+    <div class="col-3">
+        <ul class="list-group mt-2">
+            <li class="list-group-item active pointer" aria-current="true">Trang chủ</li>
+            <li class="list-group-item pointer" aria-current="true">Thành viên</li>
+            <li class="list-group-item pointer" aria-current="true">Lịch thi đấu</li>
+            <li class="list-group-item pointer" aria-current="true">Kết quả</li>
+            <li class="list-group-item pointer" aria-current="true">Sự kiện</li>
+            <li class="list-group-item pointer" aria-current="true">Thành tích</li>
+        </ul>
+    </div>
+
+    <div class="col-9">
+        <div class="container-fluid flex-col">
+
+            <div class="itemProfile">
+                <div class="css-1kakr30">
+                    <div class="coverImg">
+                        <img alt="@Model.Name" src="@Model.BackgroudImage">
+                    </div>
+                </div>
+                <div class="coverAvartar">
+                    <img src="@Model.AvatarImage"/>
+                </div>
+                <div class="nameSportCLub">
+                    <span>@Model.Name</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

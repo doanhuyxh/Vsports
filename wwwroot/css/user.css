@@ -1,2 +1,73 @@
-﻿body {
+﻿.pointer {
+  cursor: pointer !important;
+}
+.pointer:hover {
+  opacity: 0.8;
+}
+
+.active {
+  color: black !important;
+  background-color: #fff !important;
+}
+
+.list-group-item {
+  padding: 1em 1em;
+  margin: 4px 0;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  flex: 0.75 1 0%;
+  height: auto;
+}
+
+.itemProfile {
+  min-width: 0px;
+  overflow-wrap: break-word;
+  flex-direction: column;
+  width: 100%;
+  background: border-box;
+  position: relative;
+  height: auto;
+}
+
+.coverImg {
+  width: 100%;
+  height: 25em;
+  border-radius: 1em;
+  object-fit: cover;
+}
+.coverImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.css-1kakr30 {
+  background-color: #fff;
+}
+
+.coverAvartar {
+  position: absolute;
+  bottom: -2em;
+  left: 10em;
+  width: 10em;
+  height: 10em;
+  border-radius: 46%;
+  overflow: hidden;
+  z-index: 10;
+}
+.coverAvartar img {
+  width: 100%;
+  height: 100%;
+}
+
+.nameSportCLub {
+  position: absolute;
+  bottom: -2em;
+  left: 20em;
+  z-index: 100;
+}
+.nameSportCLub span {
+  color: black;
 }
