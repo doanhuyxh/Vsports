@@ -12,8 +12,8 @@ using vsports.Data;
 namespace vsports.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231130181630_chuyen status sportClub int to string")]
-    partial class chuyenstatussportClubinttostring
+    [Migration("20231204190518_init-db")]
+    partial class initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -483,6 +483,10 @@ namespace vsports.Migrations
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()

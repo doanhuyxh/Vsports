@@ -481,6 +481,10 @@ namespace vsports.Migrations
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -572,9 +576,15 @@ namespace vsports.Migrations
                     b.Property<int>("SportId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SportId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tournaments");
                 });
@@ -752,6 +762,14 @@ namespace vsports.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("vsports.Models.ApplicationUser", "Organizer")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Organizer");
+
                     b.Navigation("Sport");
                 });
 
@@ -762,6 +780,8 @@ namespace vsports.Migrations
                     b.Navigation("Friendships");
 
                     b.Navigation("SportClubs");
+
+                    b.Navigation("Tournaments");
                 });
 
             modelBuilder.Entity("vsports.Models.Round", b =>

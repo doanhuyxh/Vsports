@@ -12,6 +12,9 @@ namespace vsports.Models
         [ForeignKey("SportId")]
         public int SportId { get; set; }
         public Sport Sport { get; set; }
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+        public ApplicationUser Organizer { get; set; }
 
         public virtual ICollection<SportClubOnTournaments> SportClubOnTournaments { get;}
         public virtual ICollection<SeasonOnTournaments> SeasonOnTournaments { get;}

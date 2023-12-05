@@ -13,6 +13,7 @@
 .list-group-item {
   padding: 1em 1em;
   margin: 4px 0;
+  border: none;
 }
 
 .flex-col {
@@ -70,4 +71,12 @@
 }
 .nameSportCLub span {
   color: black;
+}
+
+header nav {
+  z-index: 99999;
+}
+
+.mt-9 {
+  margin-top: 5rem !important;
 }

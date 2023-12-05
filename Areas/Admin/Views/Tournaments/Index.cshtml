@@ -1,0 +1,64 @@
+﻿﻿<div id="AppVueTournaments" class="row">
+    <div class="col-12 text-center">
+        <p class="h3 text-dark">Giải đấu</p>
+    </div>
+    <div class="container mt-lg-2 col-12">
+        <table class="table table-striped" id="tableSport">
+            <thead class="text-dark">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Tên giải</th>
+                    <th class="text-center">người tổ chức</th>
+                    <th class="text-center">thể thao</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tr v-for="(item, index) in data">
+                <td class="text-center">{{index+1}}</td>
+                <td class="text-center">{{item.name}}</td>
+                <td class="text-center">{{item.organizerName}}</td>
+                <td class="text-center">{{item.sportName}}</td>
+                <td class="text-center">{{item.status}}</td>
+                <td class="text-center">
+                    <span class="btn btn-info" v-on:click="View(item.id)"><i class="fas fa-eye" style="color: #1920e6;"></i></span>
+                </td>
+            </tr>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var AppVueTournaments = new Vue({
+        el: "#AppVueTournaments",
+        data: {
+            data: [],
+        },
+        computed: {
+
+        },
+        mounted() {
+            this.initData();
+        },
+        methods: {
+            initData() {
+                fetch("/Admin/Tournaments/GetData")
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.statusCode == 200) {
+                            this.data = data.data;
+                        }
+                    })
+            },
+            View(id) {
+                $("#BigModelContent").load(`/Admin/Tournaments/Detail?id=${id}`, function () {
+                    HiddenSave()
+                    $("#staticBigModel").modal("show");
+                    $("#staticBigModellTitle").html("Chi tiết")
+                })
+            }
+        }
+    });
+
+</script>

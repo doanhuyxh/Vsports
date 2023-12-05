@@ -96,7 +96,8 @@ namespace vsports.Controllers
 				}
 				else if (role.Contains("User"))
 				{
-					return Redirect("/User/UserHome/Index");
+					//return Redirect("/User/UserHome/Index");
+					return Ok(user);
 				}
 				else
 				{
@@ -126,7 +127,8 @@ namespace vsports.Controllers
 					// Automatically sign in the user
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
-					return RedirectToAction("Index", "Home");
+					return Ok(result);
+					//return RedirectToAction("Index", "Home");
 				}
 				foreach (var error in result.Errors)
 				{

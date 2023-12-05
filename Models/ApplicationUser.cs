@@ -14,6 +14,7 @@ namespace vsports.Models
         public string Address { get; set; } = string.Empty;
 
         public virtual ICollection<SportClub> SportClubs { get; set; }
+        public virtual ICollection<Tournaments> Tournaments { get; set; }
         public virtual ICollection<ClubMember> ClubMembers { get; set; }
         public virtual ICollection<Friendships> Friendships { get; set; }
     }

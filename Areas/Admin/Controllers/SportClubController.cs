@@ -151,5 +151,37 @@ namespace vsports.Areas.Admin.Controllers
 			vm.SportName = _context.Sport.FirstOrDefault(i=>i.Id == vm.SportId).Name;
 			return PartialView("Detail", vm);
 		}
+
+		public ActionResult FakeSporClub()
+		{
+			_memoryCache.Remove("all_sport_club");
+
+            List<ApplicationUser> users = _context.ApplicationUser.ToList();
+
+			foreach (var user in users)
+			{
+				SportClub sport = new Faker<SportClub>()
+										.RuleFor(s=>s.Name, f=>f.Company.CompanyName())
+										.RuleFor(s=>s.SportId, f=>f.Random.Int(1,2))
+										.RuleFor(s=>s.OwnerId, f=>user.Id)
+										.RuleFor(s=>s.SportsCoach, f=>f.Name.FindName())
+										.RuleFor(s=>s.AvatarImage, "/upload/img_avatar/blank_avatar.png")
+										.RuleFor(s=>s.BackgroudImage, "/upload/img_backgroud/img_bg_bank.png")
+										.RuleFor(s=>s.Address, f=>f.Address.FullAddress())
+										.RuleFor(s=>s.PhoneNumber, f=>f.Phone.PhoneNumber())
+										.RuleFor(s=>s.Email, f=>f.Internet.Email())
+										.RuleFor(s=>s.Description, f=>f.Lorem.Paragraph())
+										.RuleFor(s=>s.ClubRules, f=>f.Lorem.Paragraph())
+										.RuleFor(s=>s.Status, "Public")
+										.RuleFor(s=>s.Point, f=>f.Random.Int(1, 1000))
+										.RuleFor(s=>s.Created, DateTime.Now)
+										.RuleFor(s=>s.IsDelete, false)
+                                        .Generate();
+				_context.Add(sport);
+				_context.SaveChanges();
+			}
+
+			return Ok(new { StatusCode =200 });
+		}
 	}
 }

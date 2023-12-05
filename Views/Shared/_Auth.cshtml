@@ -1,0 +1,62 @@
+﻿
+<div class="modal fade" id="ModalLogin" tabindex="-1" aria-labelledby="ModalLoginLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Đăng nhập</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label id="errorLogin" class="form-label text-danger d-none">Tài khoản hoặc mật khẩu sai</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tài khoản</label>
+                        <input type="text" class="form-control" id="accountLogin" autocomplete="on">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="passwordLogin" autocomplete="on">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input">
+                        <label class="form-check-label" >Nhớ tôi</label>
+                    </div>
+                    <button type="button" class="btn btn-primary float-end" onclick="Login()">Gửi</button>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModaRegister" tabindex="-1" aria-labelledby="ModalLoginLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Đăng ký</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="accountRegister" class="form-label">Tài khoản</label>
+                        <input type="text" class="form-control" id="accountRegister">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="passtRegister">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Nhập lại mật khẩu</label>
+                        <input type="password" class="form-control" id="rePasstRegister">
+                    </div>
+                   
+                    <button type="button" class="btn btn-primary float-end" onclick="Register()">Gửi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

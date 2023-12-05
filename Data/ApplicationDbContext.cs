@@ -67,6 +67,12 @@ namespace vsports.Data
                         .HasForeignKey(sc => sc.SportId)
                         .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Tournaments>()
+                        .HasOne(tournament => tournament.Organizer)
+                        .WithMany(user => user.Tournaments)
+                        .HasForeignKey(tournament => tournament.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<SportClubOnTournaments>()
                         .HasOne(s => s.Tournaments)
                         .WithMany(u => u.SportClubOnTournaments)

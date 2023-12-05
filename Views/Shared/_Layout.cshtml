@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - vsports</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link href="/lib/fe_admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <link rel="stylesheet" href="~/css/user.css" asp-append-version="true" />
 </head>
@@ -34,8 +34,18 @@
                     </ul>
                 </div>
                 <div class="float-end d-flex">
-                    <span class="btn btn-outline-primary text-dark">Đăng nhập</span>
-                    <span class="btn btn-primary mx-2">Tạo tài khoản</span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span class="text-black rounded-circle overflow-hidden pointer" data-bs-toggle="offcanvas" data-bs-target="#siteBar" aria-controls="siteBar">
+                            <img src="https://lh3.googleusercontent.com/a/ACg8ocL230iohCVrflkuFGOtH2inonXZMHm21lfu32_aP_AtKQ=s96-c" width="40" />
+                        </span>
+                    }   
+                    else
+                    {
+                        <span class="btn btn-outline-primary text-dark" data-bs-toggle="modal" data-bs-target="#ModalLogin">Đăng nhập</span>
+                        <span class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#ModaRegister">Tạo tài khoản</span>
+                    }
+                    
                 </div>
             </div>
         </nav>
@@ -47,6 +57,9 @@
     </div>
 
 
+    <partial name="~/Views/Shared/_Auth.cshtml" />
+    <partial name="~/Views/Shared/Site_bar.cshtml" />
+    <script src="/js/user.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

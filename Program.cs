@@ -74,7 +74,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
-    options.Cookie.Name = "WebAppLacDau"; // Tên cookie
+    options.Cookie.Name = "WebAppVsport"; // Tên cookie
     options.Cookie.Domain = ""; // Tên miền cookie áp dụng (nếu có)
     options.Cookie.Path = "/"; // Đường dẫn cookie áp dụng
     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Chính sách bảo mật (SameAsRequest, Always, None)
