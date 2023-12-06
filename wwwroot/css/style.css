@@ -1,0 +1,503 @@
+﻿body {
+  font-family: "Noto Sans", sans-serif;
+}
+
+:root {
+  --primaryColor: #1e88e5;
+  --secondaryColor: #ff2770;
+  --primaryTextColor: #FFF;
+  --secondaryTextColor: #fff;
+  --bg: #00357B;
+  --nav: #2e3440;
+  --darkNavBg: #27292d;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.banner-main {
+  position: relative;
+  background-image: url(/assets/img/dc330d79cf92ccb33cfa6c6013af160a.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.img-logo-system img {
+  width: 20%;
+  height: auto;
+  object-fit: cover;
+}
+
+.text-banner h3 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 52px;
+  margin-bottom: 8px;
+}
+
+.text-banner h5 {
+  color: #FFD427;
+  font-weight: 500;
+  font-size: 32px;
+  margin-bottom: 2em;
+}
+
+form .form-control {
+  border-radius: 1.25rem;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control::placeholder {
+  font-size: 1rem;
+  color: #aaa;
+  font-style: italic;
+}
+
+.btn-color {
+  background-color: #EFF4FB;
+  color: #1e88e5;
+}
+
+.main-btn {
+  padding-left: 20px;
+}
+
+.main {
+  width: 100%;
+  height: calc(100% - 35px);
+  overflow: hidden;
+}
+
+.side-menu {
+  width: 0;
+  height: 690px;
+  border-right: 0px solid transparent;
+  overflow: hidden;
+  background-color: var(--bg);
+  top: 40px;
+  left: 0;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  top: 35px;
+  transition: left 0.4s ease, border-radius 0.3s ease, clip-path 0.5s cubic-bezier(0.81, 0.51, 0.09, 1.05);
+  -webkit-clip-path: circle(0% at 0 0);
+  clip-path: circle(0% at 0 0);
+}
+
+.side-menu.resize {
+  width: 250px;
+  border-right: 2px solid var(--primaryColor);
+  -webkit-clip-path: circle(141.4% at 0 0);
+  clip-path: circle(141.4% at 0 0);
+  transition: background-color 0.5s ease, border-radius 0.3s ease, clip-path 0.5s cubic-bezier(0.81, 0.51, 0.09, 1.05);
+}
+
+.side-menu .menu-items {
+  padding: 0px 15px;
+}
+
+.side-menu a {
+  position: relative;
+  text-decoration: none;
+  color: var(--secondaryTextColor);
+  width: 100%;
+  height: 35px;
+  margin-top: 40px;
+  padding: 10px 20px;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  -webkit-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.side-menu a:hover {
+  color: var(--primaryTextColor);
+}
+
+.side-menu a.active {
+  color: var(--primaryTextColor);
+}
+
+.side-menu a::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 0%;
+  height: 0px;
+  background-color: var(--secondaryColor);
+  border-radius: 35px;
+  transition: width 0.2s ease, height 0.3s ease, border-radius 0.3s ease, transform 0.2s ease, background-color 0.3s ease-in;
+  z-index: -1;
+}
+
+.side-menu a:hover::after {
+  width: 70%;
+  height: 10px;
+  border-radius: 0;
+  transform: skewX(-45deg);
+  background-color: var(--primaryColor);
+}
+
+.side-menu a.active::after {
+  background: linear-gradient(45deg, var(--secondaryColor), var(--primaryColor));
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  border-radius: 35px;
+  left: 0;
+  transform: skewX(0);
+  animation: active 0.2s ease;
+}
+
+@keyframes active {
+  0% {
+    height: 6px;
+    width: 70%;
+    border-radius: 0;
+  }
+  70% {
+    height: 6px;
+    width: 100%;
+    border-radius: 35px;
+  }
+  75%, 100% {
+    height: 100%;
+  }
+}
+button,
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border-radius: 0;
+}
+
+.content {
+  width: 100%;
+  padding: 15px;
+  overscroll-behavior: contain;
+  position: relative;
+  max-height: 690px;
+  overflow-y: auto;
+}
+
+.tile {
+  width: 100%;
+  margin: 32px auto;
+}
+
+.tile .tab-content {
+  background: linear-gradient(43.05deg, rgb(33, 150, 243) 36.54%, rgb(0, 128, 255) 99.33%);
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+}
+
+.tab-pane {
+  padding: 15px;
+}
+
+.nav-tabs {
+  position: relative;
+  border: none !important;
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.nav-tabs li {
+  margin: 0px !important;
+}
+
+.nav-tabs li a {
+  position: relative;
+  margin-right: 0px !important;
+  padding: 20px 40px !important;
+  font-size: 16px;
+  border: none !important;
+  color: #333;
+  cursor: pointer;
+}
+
+.nav-tabs a:hover {
+  background-color: #fff !important;
+  border: none;
+}
+
+.slider {
+  display: inline-block;
+  width: 30px;
+  height: 4px;
+  border-radius: 3px;
+  background-color: var(--primaryColor);
+  position: absolute;
+  z-index: 1200;
+  bottom: 0;
+  transition: all 0.4s linear;
+}
+
+.nav-tabs .active {
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--primaryColor) !important;
+}
+
+.main-card {
+  border-radius: 0.6rem;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out 0s;
+  margin-top: 10px;
+  padding: 16px;
+  max-width: 100%;
+  margin: 16px;
+}
+
+.time-and-img {
+  max-width: 200px;
+}
+
+.img-team img {
+  width: 16%;
+}
+
+.time-and-img img {
+  width: 50%;
+  border-radius: 99999px;
+}
+
+.p-l-12 {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.css-1758vqw {
+  opacity: 0.2;
+  border-width: 0px 0px 1px;
+  border-image: initial;
+  border-color: inherit;
+  border-style: solid;
+  width: 190px;
+  margin-bottom: 10px;
+}
+
+.name-main p {
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  --chakra-line-clamp: 1;
+  width: 22rem;
+  margin-bottom: 0;
+}
+
+.date-time p {
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  --chakra-line-clamp: 1;
+  width: 22rem;
+  margin-bottom: 0;
+}
+
+.time-hour {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(25, 118, 210);
+}
+
+.name-team p {
+  margin-bottom: 0;
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+}
+
+.main-hr hr {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.slick-next {
+  right: 0 !important;
+}
+
+.slick-prev {
+  left: 0 !important;
+}
+
+.head-title::after {
+  content: "";
+  width: 120px;
+  height: 6px;
+  border-radius: 12px;
+  background-color: #327ad5;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card .front, .card .back {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: #fff;
+  border-radius: 3px;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card .cover {
+  height: 105px;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+}
+
+.card .cover img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.card .user {
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  display: block;
+  height: 110px;
+  width: 110px;
+  margin: -55px auto 0;
+  overflow: hidden;
+}
+
+.card .user img {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 0px solid #FFFFFF;
+  width: 100%;
+  height: 100%;
+}
+
+.card .content-card {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  padding: 0px 5px 5px 5px;
+}
+
+.card .content-card .main-card {
+  min-height: 55px;
+  text-align: center;
+}
+
+.card .name {
+  font-size: 18px;
+  line-height: 28px;
+  margin: 10px 0 0;
+  color: #327ad5;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+p.profession {
+  text-align: center;
+  margin: 7px 0px;
+}
+
+.profession i {
+  width: 20px;
+}
+
+.footer-rotate {
+  width: 100%;
+  height: 40px;
+  background: #327ad5;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0px;
+  margin: 0px;
+  color: #fff;
+}
+
+.footer-rotate .count-person {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background: var(--primaryColor);
+  position: relative;
+  line-height: 40px;
+  text-align: center;
+}
+
+.footer-rotate .count-person:after {
+  width: 30px;
+  content: "";
+  background: var(--primaryColor);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -2px;
+  z-index: 2;
+  transform: skew(-33deg);
+  -webkit-transform: skew(-33deg);
+}
+
+.info-league {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background: #327ad5;
+  position: relative;
+  line-height: 40px;
+  text-align: center;
+}
+
+.footer-rotate .info-league:before {
+  width: 30px;
+  content: "";
+  background: #327ad5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  transform: skew(-33deg);
+  -webkit-transform: skew(-33deg);
+}
+
+.footer-rotate a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.equals-height {
+  height: 400px;
+}
+
+.card {
+  height: 100%;
+}

@@ -1,3 +1,479 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div class="content">
+    <div class="tile">
+        <ul class="nav nav-tabs nav-justified" id="pills-tab" role="tablist">
+            <div class="slider"></div>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
+                   aria-controls="home" aria-selected="true">
+                    <i class="fas fa-home">
+
+                    </i> Giải đấu đang diễn ra
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
+                   aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-id-card"></i> Giải đấu sắp
+                    khởi tranh
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" role="tab"
+                   aria-controls="contact" aria-selected="false">
+                    <i class="fas fa-map-signs"></i> Giải đấu
+                    đã kết thúc
+                </a>
+            </li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row p-l-12 slider-container">
+                    <div class="col-6 col-md-4 main-card">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="img-team d-flex justify-content-center">
+                                <img src="/assets/img/doi1.jpeg" class="img-fluid" alt="">
+                            </div>
+                            <div class="name-main mb-3 mt-3">
+                                <p>Bóng đá nam Viện Kỹ thuật và Công nghệ năm 2023</p>
+                            </div>
+                            <div class="date-time">
+                                <p>12/04/2023</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="name-team ">
+                                    <p>62K2 CNKT Ô TÔ</p>
+                                </div>
+                                <div class="time-and-img d-flex ">
+                                    <div class="img-team-one d-flex justify-content-center">
+                                        <img src="/assets/img/f3a91d63-30b4-4d8c-9715--UTui.jpeg" alt="">
+                                    </div>
+                                    <div class="time-hour">
+                                        08:00 PM
+                                    </div>
+                                    <div class="img-team-one d-flex justify-content-center">
+                                        <img src="/assets/img/f3a91d63-30b4-4d8c-9715--UTui.jpeg" alt="">
+                                    </div>
+
+                                </div>
+
+                                <div class="name-team">
+                                    <p>62K2 CNKT Ô TÔ</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center main-hr">
+                                <hr aria-orientation="horizontal" class="chakra-divider css-1758vqw">
+
+                            </div>
+                            <div class="date-time">
+                                <p>12/04/2023</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="name-team ">
+                                    <p>62K2 CNKT Ô TÔ</p>
+                                </div>
+                                <div class="time-and-img d-flex ">
+                                    <div class="img-team-one d-flex justify-content-center">
+                                        <img src="/assets/img/f3a91d63-30b4-4d8c-9715--UTui.jpeg" alt="">
+                                    </div>
+                                    <div class="time-hour">
+                                        08:00 PM
+                                    </div>
+                                    <div class="img-team-one d-flex justify-content-center">
+                                        <img src="/assets/img/f3a91d63-30b4-4d8c-9715--UTui.jpeg" alt="">
+                                    </div>
+
+                                </div>
+
+                                <div class="name-team">
+                                    <p>62K2 CNKT Ô TÔ</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                Giải đấu
+                sắp khởi tranh
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                Giải đấu đã
+                kết thúc
+            </div>
+        </div>
+    </div>
+    <div class="head-title position-relative">
+        <h2 class="text-center ">Các cặp trận đấu nổi bật</h2>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-3 col-xl-3 mt-3 mb-3">
+            <div class="equals-height">
+                <div class="card" id="card1">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="https://cdn.ketnoibongda.vn/media-c/260-105-100/upload/images/cang-hang-khong-con-dao-2023-12-05.jpg" alt="MÙA 1" class="img-fluid">
+                        </div>
+                        <div class="user">
+                            <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                <img class="img-circle" src="https://cdn.ketnoibongda.vn/media-c/110-110-100/upload/images/screenshot-2023-08-21-173325-2023-12-05.png" alt="MÙA 1">
+                            </a>
+                        </div>
+                        <div class="content-card">
+                            <div class="main-card">
+                                <h3 class="name">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        MÙA 1
+                                    </a>
+                                </h3>
+                                <p class="profession">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Từ 10-01-2024 đến 15-01-2024
+                                </p>
+                            </div>
+                            <div class="footer-rotate">
+                                <div class="count-person">
+                                    <i class="fa fa-users" aria-hidden="true"></i> 5 Đội
+                                </div>
+                                <div class="info-league">
+                                    <a href="/league/ki-niem-68-nam-ngay-thanh-lap-nganh-hkdd-viet-nam-s6850">
+                                        Thông tin <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
