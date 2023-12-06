@@ -1,0 +1,23 @@
+﻿@model List<vsports.Models.ApplicationUser>;
+
+<table class="table">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Họ Tên</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.avatarImage" width="30"/>
+                </td>
+                <td>
+                    @item.FullName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

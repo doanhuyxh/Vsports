@@ -14,16 +14,18 @@ namespace vsports.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
+        private readonly string userName;
 
-        public SportClubController(ILogger<HomeController> logger, IMemoryCache memoryCache, ApplicationDbContext context, IConfiguration configuration)
+        public SportClubController(ILogger<HomeController> logger, IMemoryCache memoryCache, ApplicationDbContext context, IConfiguration configuration, IHttpContextAccessor accessor)
         {
             _logger = logger;
             _memoryCache = memoryCache;
             _configuration = configuration;
             _context = context;
+            userName = accessor.HttpContext.User.Identity.Name ?? "";
         }
 
-        [Route("SportClub")]
+        [Route("teams")]
         public IActionResult Index()
         {
             var rs = _memoryCache.Get("all_sport_club");
@@ -64,7 +66,7 @@ namespace vsports.Controllers
             }
         }
 
-        [Route("SportClub/{id}")]
+        [Route("teams/{id}")]
         public async Task<IActionResult> SportDetail([FromRoute] int id)
         {
             SportClubVM sportClubVM = await _context.SportClub.FirstOrDefaultAsync(i=>i.Id == id);
@@ -75,7 +77,7 @@ namespace vsports.Controllers
             return View(sportClubVM);
         }
 
-        [Route("SportClub/{id}/member")]
+        [Route("teams/{id}/member")]
         public async Task<IActionResult> Member([FromRoute] int id)
         {
             SportClubVM sportClubVM = await _context.SportClub.FirstOrDefaultAsync(i=>i.Id == id);
@@ -83,7 +85,13 @@ namespace vsports.Controllers
             sportClubVM.SportName = _context.Sport.FirstOrDefault(i => i.Id == sportClubVM.SportId).Name;
             sportClubVM.clubMembers = await _context.ClubMember.Where(i=>i.SportClubId == sportClubVM.Id).ToListAsync();
             ViewBag.CountMember = sportClubVM.clubMembers.Count;
-            return View(sportClubVM);
+            return PartialView("_Member", sportClubVM);
+        }
+        [Route("teams/{id}/schedules")]
+        public async Task<IActionResult> Schedules([FromRoute] int id)
+        {
+            
+            return PartialView("_Schedules");
         }
 
     }

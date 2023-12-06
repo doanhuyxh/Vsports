@@ -12,6 +12,11 @@ namespace vsports.Models.TournamentsVM
 
         public string? SportName { get; set; }
         public string? OrganizerName { get; set; }
+        public string AvatarImage { get; set; }
+        public string BackgroudImage { get; set; }
+
+        public IFormFile? AvatarFile { get; set; }
+        public IFormFile? BackgroudFile { get; set; }
 
         public List<SeasonOnTournaments>? SeasonOnTournaments { get; set; }
         public List<SportClubOnTournaments>? SportClubOnTournaments { get; set; }
@@ -25,6 +30,8 @@ namespace vsports.Models.TournamentsVM
                 Point = item.Point,
                 SportId = item.SportId,
                 UserId = item.UserId,
+                AvatarImage = item.AvatarImage,
+                BackgroudImage = item.BackgroudImage,
                 Created = item.Created,
                 IsDelete = item.IsDelete,
             };
@@ -38,7 +45,9 @@ namespace vsports.Models.TournamentsVM
                 Name = item.Name,
                 Point = item.Point,
                 SportId = item.SportId,
-                UserId=item.UserId,
+                UserId = item.UserId,
+                AvatarImage = item.AvatarImage,
+                BackgroudImage = item.BackgroudImage,
                 Created = item.Created,
                 IsDelete = item.IsDelete,
             };

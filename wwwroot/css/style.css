@@ -360,6 +360,16 @@ textarea {
   transform: translate(-50%, -50%);
 }
 
+.head-title-left::after {
+  content: "";
+  width: 120px;
+  height: 6px;
+  border-radius: 12px;
+  background-color: #327ad5;
+  position: absolute;
+  left: 4px;
+}
+
 .card .front, .card .back {
   display: block;
   height: 100%;
@@ -500,4 +510,42 @@ p.profession {
 
 .card {
   height: 100%;
+}
+
+.button-main {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: 1.2;
+  font-weight: 600;
+  box-shadow: rgba(112, 144, 176, 0.08) 45px 76px 113px 7px;
+  transition: all 0.25s ease 0s;
+  box-sizing: border-box;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-size: 1rem;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  background: #2196f3;
+  color: #fff;
+  border-radius: 4px;
+  width: 100%;
+  border: none;
+}
+
+.button-main:hover {
+  background: #1e88e5;
+}
+
+.pointer {
+  cursor: pointer;
 }
