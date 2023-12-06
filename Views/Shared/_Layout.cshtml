@@ -4,61 +4,144 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - vsports</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <link href="/lib/fe_admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+  
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/regular.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" href="~/css/user.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid ">
-                <a class="navbar-brand" href="/"><img src="/favicon.ico" style="width:64px"/></a>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="tìm kiếm" aria-label="Search">
-                </form>
-                <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 justify-content-center mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/leagues">Giải đấu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/teams">Câu lạc bộ</a>
-                        </li>
-                        
-                    </ul>
+    <div class="banner-main">
+        <div class="container">
+            <div class="d-flex justify-content-center flex-column">
+                <div class="img-logo-system text-center">
+                    <img src="/assets/img/Logo-Haza-49-removebg-preview.png" alt="">
                 </div>
-                <div class="float-end d-flex">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <span class="text-black rounded-circle overflow-hidden pointer" data-bs-toggle="offcanvas" data-bs-target="#siteBar" aria-controls="siteBar">
-                            <img src="https://lh3.googleusercontent.com/a/ACg8ocL230iohCVrflkuFGOtH2inonXZMHm21lfu32_aP_AtKQ=s96-c" width="40" />
-                        </span>
-                    }   
-                    else
-                    {
-                        <span class="btn btn-outline-primary text-dark" data-bs-toggle="modal" data-bs-target="#ModalLogin">Đăng nhập</span>
-                        <span class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#ModaRegister">Tạo tài khoản</span>
-                    }
-                    
+                <div class="text-banner text-center">
+                    <h3>HỆ THỐNG QUẢN LÝ</h3> <br>
+                    <h5>GIẢI ĐẤU CHUYÊN NGHIỆP</h5>
+                </div>
+                <form action="">
+                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                        <div class="input-group">
+                            <input type="search" placeholder="Tìm giải đấu" aria-describedby="button-addon1"
+                                   class="form-control border-0 bg-light">
+                            <div class="input-group-append">
+                                <button id="button-addon1" type="submit" class="btn btn-link text-primary">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="d-flex flex-nowrap justify-content-center">
+                    <div class="text-center main-btn">
+                        <button type="submit" class="btn  btn-color px-5 mb-5 w-100">Đăng Nhập</button>
+                    </div>
+                    <div class="text-center main-btn">
+                        <button type="submit" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Đăng Ký</button>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container overflow-hidden">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+
+        </div>
     </div>
+
+    <div class="main d-flex">
+        <div id="sideMenu" class="side-menu resize">
+
+
+            <div class="menu-items">
+                <a href="#" class="item">Trang chủ</a>
+                <a href="#" class="item">Giải đang diễn ra</a>
+                <a href="#" class="item">Giải sắp khởi tranh</a>
+                <a href="#" class="item">Giải đã kết thúc</a>
+                <a href="#" class="item">Giới thiệu</a>
+                <a href="#" class="item">Hướng dẫn</a>
+                <a href="#" class="item active">Bảng Giá</a>
+                <a href="#" class="item">Tin tức</a>
+            </div>
+        </div>
+        @RenderBody()
+
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+        $(".nav-tabs a").click(function () {
+            var position = $(this).parent().position();
+            var width = $(this).parent().width();
+            $(".slider").css({ "left": + position.left, "width": width });
+        });
+        var actWidth = $(".nav-tabs").find(".active").parent("li").width();
+        var actPosition = $(".nav-tabs .active").position();
+        $(".slider").css({ "left": + actPosition.left, "width": actWidth });
+
+        const sideMenu = document.getElementById("sideMenu");
+        const menuItems = document.querySelectorAll(".menu-items .item");
+
+
+        menuItems.forEach(function (item) {
+            item.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                menuItems.forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                this.classList.add("active");
+            });
+        });
+        $(document).ready(function () {
+            $('.slider-container').slick({
+                slidesToShow: 3, // Số lượng phần tử hiển thị trên mỗi slide
+                slidesToScroll: 1, // Số lượng phần tử di chuyển khi chuyển slide
+                prevArrow: '<button type="button" class="slick-prev">Previous</button>', // Nút chuyển slide sang trước
+                nextArrow: '<button type="button" class="slick-next">Next</button>', // Nút chuyển slide sang sau
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2 // Số lượng phần tử hiển thị trên mỗi slide khi màn hình có kích thước nhỏ hơn 768px
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1 // Số lượng phần tử hiển thị trên mỗi slide khi màn hình có kích thước nhỏ hơn 480px
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 
 
     <partial name="~/Views/Shared/_Auth.cshtml" />
     <partial name="~/Views/Shared/Site_bar.cshtml" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js" ></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="/js/user.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

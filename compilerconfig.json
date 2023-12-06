@@ -5,6 +5,11 @@
     "minify": { "enabled": false }
   },
   {
+    "outputFile": "wwwroot/css/style.css",
+    "inputFile": "wwwroot/scss/style.scss",
+    "minify": { "enabled": false }
+  },
+  {
     "outputFile": "wwwroot/css/admin.css",
     "inputFile": "wwwroot/scss/admin.scss",
     "minify": { "enabled": false }

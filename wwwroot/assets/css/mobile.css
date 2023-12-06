@@ -1,0 +1,21 @@
+@media (max-width: 768px) {
+    .side-menu.resize {
+        width: 250px;
+        left: 0;
+        border-right: 2px solid var(--primaryColor);
+        -webkit-clip-path: circle(141.4% at 0 0);
+        clip-path: circle(141.4% at 0 0);
+    }
+
+    .side-menu {
+        position: fixed;
+        left: -250px;
+        width: 0;
+        z-index: 99;
+    }
+
+    .content.resize {
+        width: 100%;
+        float: none;
+    }
+}
