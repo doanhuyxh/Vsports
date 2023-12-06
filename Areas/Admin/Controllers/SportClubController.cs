@@ -143,6 +143,12 @@ namespace vsports.Areas.Admin.Controllers
 			json.StatusCode = 200;
 			return Ok(json);
 		}
+		public async Task<IActionResult> ViewMember(int id)
+		{
+			List<ApplicationUser> uses = _context.Users.Where(i=>i.IsActive == true).ToList();
+						
+			return PartialView("_ViewMember", uses);
+		}
 
 		public async Task<IActionResult> Detail(int id)
 		{

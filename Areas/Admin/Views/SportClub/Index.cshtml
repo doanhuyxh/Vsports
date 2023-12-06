@@ -23,7 +23,7 @@
                 <td class="text-center">{{item.status}}</td>
                 <td class="text-center">
                     <span class="btn btn-info" v-on:click="View(item.id)"><i class="fas fa-eye" style="color: #1920e6;"></i></span>
-                    <span class="btn btn-warning" v-on:click="EditSport(item.id)">Cập nhật</span>
+                    <span class="btn btn-warning" v-on:click="ViewMember(item.id)">Thành viên</span>
                     <span class="btn btn-danger" v-on:click="DeleteSport(item.id)">Xóa</span>
                 </td>
             </tr>
@@ -103,6 +103,13 @@
                     HiddenSave()
                     $("#staticBigModel").modal("show");
                     $("#staticBigModellTitle").html("Chi tiết")
+                })
+            },
+            ViewMember(id){
+                $("#SmallScrollModelContent").load(`/Admin/SportClub/ViewMember?id=${id}`, function () {
+                    HiddenSave()
+                    $("#staticSmallScrollModel").modal("show");
+                    $("#staticSmallScrollModellTitle").html("Thành viên")
                 })
             }
         }
