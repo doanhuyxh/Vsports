@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace vsports.Models.SeasonOnTournamentsVM
 {
-    public class SeasonOnTournamentsVM:BaseEntity
+    public class SeasonOnTournamentsVM : BaseEntity
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public int TournamentsId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
@@ -34,6 +35,7 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 Address = item.Address,
                 CompetitionForm = item.CompetitionForm,
                 SeasonRules = item.SeasonRules,
+                Name = item.Name,
             };
         }
         public static implicit operator SeasonOnTournaments(SeasonOnTournamentsVM item)
@@ -49,6 +51,7 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 Address = item.Address,
                 CompetitionForm = item.CompetitionForm,
                 SeasonRules = item.SeasonRules,
+                Name = item.Name,
             };
         }
 

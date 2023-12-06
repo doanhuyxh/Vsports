@@ -6,6 +6,7 @@ using vsports.Models;
 using vsports.Models.TournamentsVM;
 using vsports.Data;
 using Bogus;
+using vsports.Models.MatchScheduleAndResultsVM;
 
 namespace vTournamentss.Areas.Admin.Controllers
 {
@@ -124,6 +125,8 @@ namespace vTournamentss.Areas.Admin.Controllers
                                                .RuleFor(t => t.Created, DateTime.Now)
                                                .RuleFor(t => t.Name, f => f.Lorem.Lines(1))
                                                .RuleFor(t => t.UserId, user.Id)
+                                               .RuleFor(t => t.AvatarImage, "/upload/img_avatar/blank_avatar.png")
+                                               .RuleFor(t => t.BackgroudImage, "/upload/img_backgroud/img_bg_bank.png")
                                                .RuleFor(t => t.SportId, f => f.Random.Int(1, 2))
                                                .Generate();
                 _context.Add(tournaments);
@@ -132,5 +135,120 @@ namespace vTournamentss.Areas.Admin.Controllers
 
             return Ok();
         }
+        public IActionResult AddFakeDataMember()
+        {
+            List<SportClub> SportClubs = _context.SportClub.ToList();
+
+            foreach (var SportClub in SportClubs)
+            {
+                SportClubOnTournaments clubOnTournaments = new Faker<SportClubOnTournaments>()
+                                                               .RuleFor(s => s.IsDelete, f => false)
+                                                               .RuleFor(s => s.SportClubId, SportClub.Id)
+                                                               .RuleFor(s => s.TournamentsId, f => f.Random.Int(1, 306))
+                                                               .RuleFor(s => s.Point, f => f.Random.Int(1, 306))
+                                                               .RuleFor(s => s.Created, DateTime.Now)
+                                                               .RuleFor(s => s.Status, "Accepted")
+                                                               .Generate();
+
+                _context.SportClubOnTournaments.Add(clubOnTournaments);
+                _context.SaveChanges();
+            }
+
+            return Ok();
+        }
+
+        // lưu và cập nhật lịch thi đấu
+        [HttpPost]
+        public async Task<IActionResult> MatchScheduleAndResults(MatchScheduleAndResultsVM vm)
+        {
+            JsonResultVM json = new JsonResultVM();
+            try
+            {
+                MatchScheduleAndResults schedu = new MatchScheduleAndResults();
+                if (vm.Id != 0)
+                {
+                    schedu = await _context.MatchScheduleAndResults.FirstOrDefaultAsync(i => i.Id == vm.Id);
+                    vm.Created = schedu.Created;
+                    vm.IsDelete = schedu.IsDelete;
+                    _context.Entry(schedu).CurrentValues.SetValues(vm);
+
+                }
+                else
+                {
+                    schedu = vm;
+                    schedu.IsDelete = false;
+                    schedu.Created = DateTime.Now;
+                    _context.Add(schedu);
+                }
+                json.Data = schedu;
+                json.StatusCode = 200;
+                _context.SaveChanges();
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                json.Message = ex.Message;
+                json.StatusCode = 500;
+                json.Data = vm;
+                return Ok(json);
+            }
+        }
+        //lấy tất cả lịch thi đấu theo điều kiện mùa giải và vồng đấu
+        public async Task<IActionResult> GetDataSchedule(int seasionId, int roundId)
+        {
+            JsonResultVM json = new JsonResultVM();
+            try
+            {
+                List<MatchScheduleAndResults> list = _context.MatchScheduleAndResults.Where(i=>i.IsDelete == false && i.SeasonOnTournamentId == seasionId && i.RoundId == roundId).ToList();
+                json.Data = list;
+                json.StatusCode = 200;
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                json.Message = ex.Message;
+                json.StatusCode = 500;
+                return Ok(json);
+            }
+        }
+        //lấy tất cả lịch thi đấu theo ID
+        public async Task<IActionResult> GetDataScheduleById(int id )
+        {
+            JsonResultVM json = new JsonResultVM();
+            try
+            {
+                MatchScheduleAndResults list = await _context.MatchScheduleAndResults.FirstOrDefaultAsync(i=>i.IsDelete == false && i.Id == id);
+                json.Data = list;
+                json.StatusCode = 200;
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                json.Message = ex.Message;
+                json.StatusCode = 500;
+                return Ok(json);
+            }
+        }
+        //Xóa lịch thi đấu theo ID
+        public async Task<IActionResult> DeleteDataScheduleById(int id )
+        {
+            JsonResultVM json = new JsonResultVM();
+            try
+            {
+                MatchScheduleAndResults list = await _context.MatchScheduleAndResults.FirstOrDefaultAsync(i=>i.IsDelete == false && i.Id == id);
+                list.IsDelete = true;
+                _context.MatchScheduleAndResults.Update(list);
+                json.Data = list;
+                json.StatusCode = 200;
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                json.Message = ex.Message;
+                json.StatusCode = 500;
+                return Ok(json);
+            }
+        }
+
     }
 }

@@ -160,7 +160,6 @@ namespace vsports.Areas.Admin.Controllers
 
 		public ActionResult FakeSporClub()
 		{
-			_memoryCache.Remove("all_sport_club");
 
             List<ApplicationUser> users = _context.ApplicationUser.ToList();
 
