@@ -9,6 +9,7 @@ namespace vsports.Models.MatchScheduleAndResultsVM
         public int SeasonOnTournamentId { get; set; }
 
         public int RoundId { get; set; }
+        public int BoardId { get; set; }
 
         public DateTime Schedule { get; set; }
 
@@ -34,6 +35,7 @@ namespace vsports.Models.MatchScheduleAndResultsVM
                 Id = item.Id,
                 SeasonOnTournamentId = item.SeasonOnTournamentId,
                 RoundId = item.RoundId,
+                BoardId = item.BoardId,
                 SportClubId_1 = item.SportClubId_1,
                 SportClubId_2 = item.SportClubId_2,
                 Status = item.Status,
@@ -50,6 +52,7 @@ namespace vsports.Models.MatchScheduleAndResultsVM
                 Id = item.Id,
                 SeasonOnTournamentId = item.SeasonOnTournamentId,
                 RoundId = item.RoundId,
+                BoardId = item.BoardId,
                 SportClubId_1 = item.SportClubId_1,
                 SportClubId_2 = item.SportClubId_2,
                 Status = item.Status,

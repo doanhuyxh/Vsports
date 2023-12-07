@@ -6,14 +6,20 @@ namespace vsports.Models
     public class MatchScheduleAndResults : BaseEntity
     {
         [Key] public int Id { get; set; }
+
         public int SeasonOnTournamentId { get; set; }
         [ForeignKey("SeasonOnTournamentId")]
         public SeasonOnTournaments SeasonOnTournaments { get; set; }
+
         public int RoundId { get; set; }
         [ForeignKey("RoundId")]
         public Round Round { get; set; }
-        public DateTime Schedule { get; set; }
 
+        public int BoardId { get; set; }
+        [ForeignKey("BoardId")]
+        public Board Board { get; set; }
+
+        public DateTime Schedule { get; set; }
         public int SportClubId_1 { get; set; }
         [ForeignKey("SportClubId_1")]
         public SportClub SportClub1 { get; set; }

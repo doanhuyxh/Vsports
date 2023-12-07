@@ -16,6 +16,17 @@ namespace vsports.Models.SeasonOnTournamentsVM
         public string CompetitionForm { get; set; }
         public string SeasonRules { get; set; }
 
+
+        public int TeamsNumber { get; set; }
+        public int MemberOfTeam { get; set; }
+        public int numberOfRoundsPerMatch { get; set; }
+        public int numberOfCoaches { get; set; }
+        public int TimeFight { get; set; }
+        public int NumberBoard { get; set; }
+        public int NumberTeamOnRoud { get; set; }
+
+
+
         public IFormFile? BackgroudFile { get; set; }
         public IFormFile? AvatarFile { get; set; }
 
@@ -36,6 +47,13 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 CompetitionForm = item.CompetitionForm,
                 SeasonRules = item.SeasonRules,
                 Name = item.Name,
+                TeamsNumber = item.TeamsNumber,
+                MemberOfTeam = item.MemberOfTeam,
+                numberOfRoundsPerMatch = item.numberOfRoundsPerMatch,
+                numberOfCoaches = item.numberOfCoaches,
+                TimeFight = item.TimeFight,
+                NumberBoard = item.NumberBoard,
+                NumberTeamOnRoud = item.NumberTeamOnRoud,
             };
         }
         public static implicit operator SeasonOnTournaments(SeasonOnTournamentsVM item)
@@ -52,6 +70,13 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 CompetitionForm = item.CompetitionForm,
                 SeasonRules = item.SeasonRules,
                 Name = item.Name,
+                TeamsNumber = item.TeamsNumber,
+                MemberOfTeam = item.MemberOfTeam,
+                numberOfRoundsPerMatch = item.numberOfRoundsPerMatch,
+                numberOfCoaches = item.numberOfCoaches,
+                TimeFight = item.TimeFight,
+                NumberBoard = item.NumberBoard,
+                NumberTeamOnRoud = item.NumberTeamOnRoud,
             };
         }
 
