@@ -19,13 +19,14 @@ namespace vsports.Models.MatchScheduleAndResultsVM
 
         public string Status { get; set; } //Pending, Playing, Finished, Cancel
         public string Winner { set; get; } // SportClubId_1 or SportClubId_2
-
+        public string SportClub2_Name { get; set; }
+        public string SportClub1_Name { get; set; }
 
 
         public SeasonOnTournaments? SeasonOnTournaments { get; set; }
         public Round? Round { get; set; }
         public SportClub? SportClub2 { get; set; }
-        public SportClub SportClub1 { get; set; }
+        public SportClub? SportClub1 { get; set; }
 
 
         public static implicit operator MatchScheduleAndResultsVM(MatchScheduleAndResults item)
@@ -38,6 +39,8 @@ namespace vsports.Models.MatchScheduleAndResultsVM
                 BoardId = item.BoardId,
                 SportClubId_1 = item.SportClubId_1,
                 SportClubId_2 = item.SportClubId_2,
+                SportClub1_Name = item.SportClub1_Name,
+                SportClub2_Name = item.SportClub2_Name,
                 Status = item.Status,
                 Schedule = item.Schedule,
                 Winner = item.Winner,
@@ -55,6 +58,8 @@ namespace vsports.Models.MatchScheduleAndResultsVM
                 BoardId = item.BoardId,
                 SportClubId_1 = item.SportClubId_1,
                 SportClubId_2 = item.SportClubId_2,
+                SportClub1_Name = item.SportClub1_Name,
+                SportClub2_Name = item.SportClub2_Name,
                 Status = item.Status,
                 Schedule = item.Schedule,
                 Winner = item.Winner,

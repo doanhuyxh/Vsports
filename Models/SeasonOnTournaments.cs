@@ -21,6 +21,7 @@ namespace vsports.Models
         public int TeamsNumber { get; set; }
         public int MemberOfTeam { get; set; }
         public int numberOfRoundsPerMatch { get; set; }
+        public int numberOfRounds { get; set; }
         public int numberOfCoaches { get; set; }
         public int TimeFight { get; set; }
         public int NumberBoard {  get; set; }

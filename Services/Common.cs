@@ -38,7 +38,7 @@ namespace vsports.Services
                 if (file.FileName == null)
                     path = "icon.png";
                 else
-                    path =  DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
+                    path = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
                 string filePath = Path.Combine(uploadsFolder, path);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
@@ -86,6 +86,39 @@ namespace vsports.Services
                 }
             }
             return $"/upload/pdf/{path}";
+        }
+
+        public string[] GenerateAlphabetArray(int n)
+        {
+            if (n < 1 || n > 26)
+            {
+                n = 1;
+            }
+
+            char startChar = 'A';
+            string[] result = new string[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                result[i] = ((char)(startChar + i)).ToString();
+            }
+
+            return result;
+        }
+
+        public List<String> RotateTeams(List<string> teams)
+        {
+
+            string temp = teams[1];
+
+            for (int i = 1; i < teams.Count - 1; i++)
+            {
+                teams[i] = teams[i + 1];
+            }
+
+            teams[teams.Count - 1] = temp;
+
+            return teams;
         }
     }
 }

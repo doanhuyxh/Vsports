@@ -20,11 +20,11 @@ namespace vsports.Models.SeasonOnTournamentsVM
         public int TeamsNumber { get; set; }
         public int MemberOfTeam { get; set; }
         public int numberOfRoundsPerMatch { get; set; }
+        public int numberOfRounds { get; set; }
         public int numberOfCoaches { get; set; }
         public int TimeFight { get; set; }
         public int NumberBoard { get; set; }
         public int NumberTeamOnRoud { get; set; }
-
 
 
         public IFormFile? BackgroudFile { get; set; }
@@ -54,6 +54,7 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 TimeFight = item.TimeFight,
                 NumberBoard = item.NumberBoard,
                 NumberTeamOnRoud = item.NumberTeamOnRoud,
+                numberOfRounds = item.numberOfRounds,
             };
         }
         public static implicit operator SeasonOnTournaments(SeasonOnTournamentsVM item)
@@ -77,6 +78,7 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 TimeFight = item.TimeFight,
                 NumberBoard = item.NumberBoard,
                 NumberTeamOnRoud = item.NumberTeamOnRoud,
+                numberOfRounds = item.numberOfRounds
             };
         }
 

@@ -96,8 +96,8 @@ namespace vsports.Controllers
                 }
                 else if (role.Contains("User"))
                 {
-                    //return Redirect("/User/UserHome/Index");
-                    return Ok(user);
+                    return Redirect("/User/UserHome/Index");
+                    //return Ok(user);
                 }
                 else
                 {

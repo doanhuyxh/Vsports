@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Windows.Input;
 using vsports.Data;
 using vsports.Middleware;
 using vsports.Models;
+using vsports.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,7 @@ builder.Services.AddResponseCaching();
 
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 
+builder.Services.AddScoped<ICommon, Common>();
 builder.Services.AddScoped<IIdentityDataInitializer, IdentityDataInitializer>();
 
 builder.Services.Configure<IdentityOptions>(options =>
