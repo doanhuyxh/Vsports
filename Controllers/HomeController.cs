@@ -33,6 +33,11 @@ namespace vsports.Controllers
             ViewBag.user = userName;
             return View();
         }
+        [Route("/not-found")]
+        public IActionResult NotFoundPage()
+        {
+            return View();
+        }
 
     }
 }

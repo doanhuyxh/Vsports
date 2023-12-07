@@ -10,6 +10,26 @@
     "minify": { "enabled": false }
   },
   {
+    "outputFile": "wwwroot/css/details.css",
+    "inputFile": "wwwroot/scss/details.scss",
+    "minify": { "enabled": false }
+  },
+  {
+    "outputFile": "wwwroot/css/giaidau.css",
+    "inputFile": "wwwroot/scss/giaidau.scss",
+    "minify": { "enabled": false }
+  },
+  {
+    "outputFile": "wwwroot/css/muagiai.css",
+    "inputFile": "wwwroot/scss/muagiai.scss",
+    "minify": { "enabled": false }
+  },
+  {
+    "outputFile": "wwwroot/css/root.css",
+    "inputFile": "wwwroot/scss/root.scss",
+    "minify": { "enabled": false }
+  },
+  {
     "outputFile": "wwwroot/css/admin.css",
     "inputFile": "wwwroot/scss/admin.scss",
     "minify": { "enabled": false }

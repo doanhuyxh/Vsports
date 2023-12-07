@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - vsports</title>
+    <title>@ViewData["Title"]</title>
     <link href="/lib/fe_admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/style.css" rel="stylesheet" />
 
+    <link href="/css/muagiai.css" rel="stylesheet" />
+    <link href="/css/details.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" />
@@ -46,13 +48,12 @@
                         </div>
                     </div>
                 </form>
-
                 <div class="d-flex flex-nowrap justify-content-center">
                     <div class="text-center main-btn">
-                        <button type="submit" data-bs-toggle="modal" data-bs-target="#ModalLogin" class="btn  btn-color px-5 mb-5 w-100">Đăng Nhập</button>
+                        <button type="submit" class="btn  btn-color px-5 mb-5 w-100">Đăng Nhập</button>
                     </div>
                     <div class="text-center main-btn">
-                        <button type="submit" data-bs-toggle="modal" data-bs-target="#ModaRegister" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Đăng Ký</button>
+                        <button type="submit" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Đăng Ký</button>
                     </div>
                 </div>
             </div>
@@ -61,22 +62,12 @@
         </div>
     </div>
 
-    <div class="main d-flex">
-        <div id="sideMenu" class="side-menu resize">
+    <div class="main-gd ">
+        <div class="container">
 
-
-            <div class="menu-items">
-                <a href="#" class="item">Trang chủ</a>
-                <a href="#" class="item">Giải đang diễn ra</a>
-                <a href="#" class="item">Giải sắp khởi tranh</a>
-                <a href="#" class="item">Giải đã kết thúc</a>
-                <a href="#" class="item">Giới thiệu</a>
-                <a href="#" class="item">Hướng dẫn</a>
-                <a href="#" class="item active">Bảng Giá</a>
-                <a href="#" class="item">Tin tức</a>
-            </div>
-        </div>
+           
         @RenderBody()
+        </div>
 
 
     </div>

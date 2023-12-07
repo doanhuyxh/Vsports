@@ -1,0 +1,81 @@
+.blue-background {
+    background-color: #00acec;
+}
+
+.box-quick-link {
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.box-quick-link a {
+    text-decoration: none;
+    color: #222222;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.box-quick-link a .header {
+    height: 60px;
+    line-height: 60px;
+    padding-bottom: 2px;
+}
+
+.box-quick-link a .header [class^="icon-"], .box-quick-link a .header [class*=" icon-"] {
+    color: white;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+a [class^="icon-"], a [class*=" icon-"] {
+    display: inline;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-top: 0;
+}
+
+.icon-calendar:before {
+    content: "\f073";
+}
+
+.box-quick-link a .content {
+    text-transform: uppercase;
+    font-size: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    color: #5b5b5b;
+    background-color: #dbdbdb;
+    border-bottom: 1px solid #cecece;
+    padding: 5px;
+}
+
+.header i {
+    color: #ffffff;
+    font-size: 32px;
+}
+
+.blue-background:hover i {
+    font-size: 38px;
+}
+
+.breadcrumb li {
+    padding-left: 12px;
+}
+
+.blue-background .title {
+    color: #ffffff;
+    padding: 5px 0px 5px 10px;
+    font-size: 18px;
+}

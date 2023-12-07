@@ -13,8 +13,7 @@ namespace vsports.Models
         public int SportClubId { get; set; }
         [ForeignKey("SportClubId")]
         public SportClub SportClub { get; set; }
-
         public int Point {  get; set; }
-        public string Status { get; set; } //Accepted, Pending
+        public string Status { get; set; } 
     }
 }

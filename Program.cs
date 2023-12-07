@@ -53,7 +53,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
 
     // Lockout settings
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(7);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
@@ -152,16 +152,18 @@ app.MapAreaControllerRoute(
     areaName: "Admin",
     pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
 
+app.UseStatusCodePages(async context =>
+{
+	var response = context.HttpContext.Response;
+
+	if (response.StatusCode == 404)
+	{
+		response.Redirect("/not-found");
+	}
+
+});
 app.MapRazorPages();
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var initializer = services.GetRequiredService<IIdentityDataInitializer>();
-    await initializer.SeedData(
-        services.GetRequiredService<UserManager<ApplicationUser>>(),
-        services.GetRequiredService<RoleManager<IdentityRole>>()
-    );
-}
+
 app.Run();

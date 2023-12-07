@@ -14,12 +14,16 @@ namespace vsports.Models.SeasonOnTournamentsVM
         public string Address { get; set; }
         public string CompetitionForm { get; set; }
         public string SeasonRules { get; set; }
+        public string Name { get; set; }
 
         public IFormFile? BackgroudFile { get; set; }
         public IFormFile? AvatarFile { get; set; }
 
         public Tournaments? Tournaments { get; set; }
         public List<MatchScheduleAndResults> MatchScheduleAndResults { get; set; }
+        public List<SeasonOnTournaments> SeasonOnTournamentsList { get; set; }
+        public Tournaments TournamentsMain { get; set; }
+        public SeasonOnTournaments SeasonOnTournamentsMain { get; set; }
 
         public static implicit operator SeasonOnTournamentsVM(SeasonOnTournaments item)
         {
@@ -34,6 +38,7 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 Address = item.Address,
                 CompetitionForm = item.CompetitionForm,
                 SeasonRules = item.SeasonRules,
+                Name = item.Name,
             };
         }
         public static implicit operator SeasonOnTournaments(SeasonOnTournamentsVM item)
@@ -49,6 +54,7 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 Address = item.Address,
                 CompetitionForm = item.CompetitionForm,
                 SeasonRules = item.SeasonRules,
+                Name = item.Name,
             };
         }
 

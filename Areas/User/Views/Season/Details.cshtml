@@ -1,0 +1,155 @@
+﻿@model vsports.Models.SeasonOnTournamentsVM.SeasonOnTournamentsVM
+
+@section Styles {
+    <link href="~/css/giaidau.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = Model.SeasonOnTournamentsMain.Name;
+
+}
+
+<div class="row">
+    <div class="col-6 col-md-2">
+        <div class="box-quick-link blue-background">
+            <a href="/system/soccer/match/MatchSeason/6861">
+                <div class="header">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div class="content">Lịch thi đấu</div>
+            </a>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="box-quick-link blue-background">
+            <a href="/system/soccer/match/MatchSeason/6861">
+                <div class="header">
+                    <i class="fa-solid fa-list-ol"></i>
+                </div>
+                <div class="content">Bảng xếp hạng</div>
+            </a>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="box-quick-link blue-background">
+            <a href="/system/soccer/match/MatchSeason/6861">
+                <div class="header">
+                    <i class="fa-solid fa-people-group"></i>
+                </div>
+                <div class="content">Đội bóng</div>
+            </a>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="box-quick-link blue-background">
+            <a href="/system/soccer/match/MatchSeason/6861">
+                <div class="header">
+                    <i class="fa-solid fa-table-cells"></i>
+                </div>
+                <div class="content">Bốc thăm</div>
+            </a>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="box-quick-link blue-background">
+            <a href="/system/soccer/match/MatchSeason/6861">
+                <div class="header">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="content">Xuất bản ghi</div>
+            </a>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="box-quick-link blue-background">
+            <a href="/system/soccer/match/MatchSeason/6861">
+                <div class="header">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div class="content">Giải thưởng</div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="page-header d-flex justify-content-between mt-4">
+    <div class="head-title-left position-relative">
+        <h2 class="text-black pt-2">Lịch thi đấu</h2>
+    </div>
+    <div class="pull-right">
+        <ul class="breadcrumb">
+            <li>
+                <a href="/system/soccer/match/ExportExcel/6861">
+                    <button class="btn btn-success">
+                        <i class="icon-download-alt"></i> Tải lịch thi
+                        đấu
+                    </button>
+                </a>
+            </li>
+            <li>
+                <a href="/system/soccer/match/AddMatch/6861">
+                    <button class="btn btn-primary"><i class="icon-plus"></i> Thêm mới</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="mt-4">
+    <div class="box-header blue-background">
+        <div class="title">Vòng 1</div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Ngày</th>
+                <th>Giờ</th>
+                <th>Đội chủ nhà</th>
+                <th>Tỉ số</th>
+                <th>Đội khách</th>
+                <th>Sân</th>
+                <th>Vòng</th>
+                <th>Live</th>
+                <th>Trạng thái</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>06-12-2023</td>
+                <td>08:00</td>
+                <td>a</td>
+                <td>2 - 1</td>
+                <td>b</td>
+                <td>b</td>
+                <td>Vòng 1</td>
+                <td>
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+
+                </td>
+                <td>
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+
+                </td>
+                <td>
+                    <button class="btn btn-info btn-xs has-tooltip"
+                            data-placement="top" title="Cập nhật lịch và sân thi đấu" data-original-title="Cập nhật lịch và sân thi đấu">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        + <i class="icon-location-arrow"></i>
+                    </button>
+                    <a class="btn btn-success btn-xs has-tooltip" data-placement="top" title="Thông số trận đấu"
+                       href="/system/soccer/match/MatchDetail/1059957"
+                       data-original-title="Thông số trận đấu">
+                        <i class="fa-solid fa-gears"></i> Thông số
+                    </a>
+                    <a class="btn btn-info btn-xs has-tooltip" data-placement="top" title="Sửa"
+                       href="/system/soccer/match/EditMatch/1059957">
+                        <i class="fa-solid fa-pen-to-square"></i> Sửa
+                    </a>
+                    <a class="btn btn-danger btn-xs">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

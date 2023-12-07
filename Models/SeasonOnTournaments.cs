@@ -16,6 +16,7 @@ namespace vsports.Models
         public string Address { get; set; }
         public string CompetitionForm { get; set; }
         public string SeasonRules { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<MatchScheduleAndResults> MatchScheduleAndResults { get; set; }
     }

@@ -1,0 +1,45 @@
+﻿
+@model List<vsports.Models.Tournaments>
+<div class="main-gd ">
+    <div class="container">
+        <div class="d-flex mb-4">
+           
+            <div class="">
+                <a class="btn btn-outline-success">Tạo mùa giải</a>
+            </div>
+        </div>
+        <div class="main-list">
+            <div class="head-title-left position-relative">
+                <h2 class="text-black  pt-2">Danh sách mùa giải</h2>
+            </div>
+            <div class="row mt-5 mb-5 pb-5">
+                @foreach(var items in Model)
+                {
+                    <div class="col-12 col-md-3 col-xl-3">
+                        
+                        <div class="card-main">
+                            <a href="/season/@items.Id">
+                            <div class="img-gd">
+                                <div class="img-border">
+                                    <img src="@items.AvatarImage" alt="">
+                                </div>
+                            </div>
+                            <div class="title-gd">
+                                <p>@items.Name</p>
+                            </div>
+                            </a>
+                            <div class="viewer-text">
+                                <p>1 người theo dõi</p>
+                            </div>
+                            <div class="btn-theo-doi">
+                                <a href="#" class="button-main">Xem mùa giải</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+
+</div>
