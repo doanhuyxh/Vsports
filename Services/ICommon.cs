@@ -8,5 +8,11 @@
         string RandomString(int length);
         string[] GenerateAlphabetArray(int length);
         List<String> RotateTeams(List<string> teams);
+        Dictionary<string, List<string>> CreateGroups(List<string> teams, int groupCount);
+        Dictionary<string, List<Tuple<string, string>>> GenerateGroupFixtures(Dictionary<string, List<string>> groups);
+        Dictionary<string, List<string>> SimulateGroupStage(Dictionary<string, List<Tuple<string, string>>> groupFixtures);
+        List<string> GetTopTeams(Dictionary<string, List<string>> groupResults);
+        List<List<Tuple<string, string>>> GenerateKnockoutFixtures(List<string> topTeams);
+        List<string> SimulateKnockoutStage(List<List<Tuple<string, string>>> knockoutFixtures);
     }
 }

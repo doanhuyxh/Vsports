@@ -10,6 +10,7 @@ using vsports.Models.MatchScheduleAndResultsVM;
 using vsports.Models.SeasonOnTournamentsVM;
 using vsports.Services;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Text.RegularExpressions;
 
 namespace vTournamentss.Areas.Admin.Controllers
 {
@@ -386,7 +387,7 @@ namespace vTournamentss.Areas.Admin.Controllers
                                 Round r = new Round();
                                 r.Created = DateTime.Now;
                                 r.IsDelete = false;
-                                r.RoundName = "Vòng "+ i;
+                                r.RoundName = "Vòng " + i;
                                 _context.Add(r);
                                 _context.SaveChanges();
 
@@ -397,11 +398,12 @@ namespace vTournamentss.Areas.Admin.Controllers
                                 b.RoundId = r.Id;
                                 _context.Add(b);
                                 _context.SaveChanges();
-                                
-                                
-                                for(int k = 0; k < board.Length; k++)
+
+
+                                for (int k = 0; k < board.Length; k++)
                                 {
-                                    schedules.Add(new MatchScheduleAndResults{
+                                    schedules.Add(new MatchScheduleAndResults
+                                    {
                                         Schedule = DateTime.Now,
                                         Status = "Pendding",
                                         IsDelete = false,
@@ -429,6 +431,110 @@ namespace vTournamentss.Areas.Admin.Controllers
                         json.Data = season;
                         return Ok(json);
                     }
+                    else if (vm.CompetitionForm == "Vòng loại trực tiếp theo bảng")
+                    {
+                        //tạo tên team
+                        List<string> teams = new List<string>();
+                        for (int i = 1; i <= numTeams; i++)
+                        {
+                            teams.Add("Team " + i);
+                        }
+                        //tạo bảng
+                        Dictionary<string, List<string>> board = _icommon.CreateGroups(teams, nunBoard);
+
+                        // tạo trận đấu vòng loại theo bảng
+                        Dictionary<string, List<Tuple<string, string>>> boardFixtures = _icommon.GenerateGroupFixtures(board);
+
+
+                        // chèn dữ liệu vòng loại
+                        // tạo vòng loại
+                        Round vong1 = new Round();
+                        vong1.RoundName = "Vòng 1";
+                        vong1.Created = DateTime.Now;
+                        vong1.IsDelete = false;
+                        _context.Add(vong1 );
+                        _context.SaveChanges();
+
+                        // lặp qua các bảng
+                        foreach (var item in boardFixtures)
+                        {
+                            // tạo bảng
+                            Board board1 = new Board();
+                            board1.Name = item.Key;
+                            board1.RoundId = vong1.Id;
+                            board1.Created = DateTime.Now;
+                            board1.IsDelete = false;
+                            _context.Add(board1);
+                            _context.SaveChanges();
+                            // chèn lịch thi đâu theo bảng
+                            foreach (var fixture in item.Value)
+                            {
+                                MatchScheduleAndResults schedule = new MatchScheduleAndResults();
+                                schedule.SportClubId_1 = 0;
+                                schedule.SportClubId_2 = 0;
+                                schedule.SportClub1_Name = fixture.Item1;
+                                schedule.SportClub2_Name = fixture.Item2;
+                                schedule.BoardId = board1.Id;
+                                schedule.RoundId = vong1.Id;
+                                schedule.IsDelete = false;
+                                schedule.Winner = "";
+                                schedule.Schedule = DateTime.Now;
+                                schedule.SeasonOnTournamentId = season.Id;
+                                schedule.Status = "Pending";
+                                _context.Add(schedule);
+                                _context.SaveChanges();
+                            }
+                        }
+
+                        //tạo đôi chiến thắng ngẫu nhiên sau vòng loại
+                        Dictionary<string, List<string>> boardResults = _icommon.SimulateGroupStage(boardFixtures);
+
+                        //lấy ngẫu nhiên đội thắng
+                        List<string> topTeams = _icommon.GetTopTeams(boardResults);
+
+                        // tự đánh vòng sau loại 
+                        //tạo vòng bán kết
+                        List<List<Tuple<string, string>>> knockoutFixtures = _icommon.GenerateKnockoutFixtures(topTeams);
+
+                        // chèn dữ liệu vòng bán kết
+                        foreach (var round in knockoutFixtures)
+                        {
+                           
+                            Round round2 =  new Round();
+                            round2.RoundName = $"{knockoutFixtures.IndexOf(round) + 2}";
+                            round2.Created = DateTime.Now;
+                            round2.IsDelete = false;
+                            round2.SeasonOnTournamentId = season.Id;
+
+                            _context.Add(round2);
+                            _context.SaveChanges();
+                            Board board2 = new Board();
+                            board2.Name = "Sau vòng bảng";
+                            board2.IsDelete = false;
+                            board2.Created = DateTime.Now;
+                            board2.RoundId = round2.Id;
+                            _context.Add(board2);
+                            _context.SaveChanges();
+                            foreach (var match in round)
+                            {
+                                MatchScheduleAndResults schedule = new MatchScheduleAndResults();
+                                schedule.SportClubId_1 = 0;
+                                schedule.SportClubId_2 = 0;
+                                schedule.SportClub1_Name = match.Item1;
+                                schedule.SportClub2_Name = match.Item2;
+                                schedule.BoardId = board2.Id;
+                                schedule.RoundId = round2.Id;
+                                schedule.IsDelete = false;
+                                schedule.Winner = "";
+                                schedule.Schedule = DateTime.Now;
+                                schedule.SeasonOnTournamentId = season.Id;
+                                schedule.Status = "Pending";
+                                _context.Add(schedule);
+                                _context.SaveChanges();
+                            }
+                        }
+
+                    }
 
                 }
                 else
@@ -438,11 +544,11 @@ namespace vTournamentss.Areas.Admin.Controllers
                     season.Start = vm.Start;
                     season.End = vm.End;
                     season.Address = vm.Address;
-                    if(vm.AvatarFile != null)
+                    if (vm.AvatarFile != null)
                     {
                         season.AvatarImage = await _icommon.UploadImgAvatarAsync(vm.AvatarFile);
                     }
-                    if(vm.BackgroudFile != null)
+                    if (vm.BackgroudFile != null)
                     {
                         season.BackgroudImage = await _icommon.UploadImgBackgroudAsync(vm.BackgroudFile);
                     }
