@@ -296,245 +296,10 @@ namespace vTournamentss.Areas.Admin.Controllers
                     _context.Add(season);
                     _context.SaveChanges();
 
+                    json = _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
+                    json.Data = season;
+                    return Ok(json);
 
-
-                    // tạo lịch thi đấu theo vòng
-                    if (season.CompetitionForm == "Theo vòng")
-                    {
-                        List<MatchScheduleAndResults> MatchScheduleAndResults = new List<MatchScheduleAndResults>();
-                        int TongVong = numTeams - 1;
-                        List<String> name = new List<string>();
-                        for (int i = 1; i <= numTeams; i++)
-                        {
-                            name.Add("Team " + i);
-                        }
-
-                        //số lượt gặp nhập
-                        for (int i = 1; i <= numRound; i++)
-                        {
-                            // số vòng đâu
-                            for (int j = 1; j <= TongVong * i; j++)
-                            {
-                                Round round = new Round();
-                                round.SeasonOnTournamentId = season.Id;
-                                round.RoundName = $"Vòng {j + 1}";
-                                round.Created = DateTime.Now;
-                                round.IsDelete = false;
-                                _context.Add(round);
-                                _context.SaveChanges();
-
-                                Board board = new Board();
-                                board.Id = 0;
-                                board.RoundId = round.Id;
-                                board.Name = "A";
-                                board.Created = DateTime.Now;
-                                board.IsDelete = false;
-                                _context.Add(board);
-                                _context.SaveChanges();
-
-                                // thêm lịch
-                                for (int k = 0; k < numTeams / 2; k++)
-                                {
-                                    MatchScheduleAndResults.Add(new MatchScheduleAndResults()
-                                    {
-                                        RoundId = round.Id,
-                                        BoardId = board.Id,
-                                        Created = DateTime.Now,
-                                        SportClub1_Name = name[k],
-                                        SportClub2_Name = name[name.Count - 1 - k],
-                                        SportClubId_1 = 0,
-                                        SportClubId_2 = 0,
-                                        SeasonOnTournamentId = season.Id,
-                                        Schedule = DateTime.Now,
-                                        Status = "Pennding",
-                                        Winner = "",
-                                        IsDelete = false,
-                                    });
-
-                                }
-                                name = _icommon.RotateTeams(name);
-                            }
-                        }
-
-                        _context.MatchScheduleAndResults.AddRange(MatchScheduleAndResults);
-                        _context.SaveChanges();
-                    }
-                    else if (vm.CompetitionForm == "Chia bảng")
-                    {
-                        string[] board = _icommon.GenerateAlphabetArray(nunBoard);
-                        List<MatchScheduleAndResults> schedules = new List<MatchScheduleAndResults>();
-                        int totalRound = numTeams / 2 - 1;
-
-                        if (totalRound <= 0)
-                        {
-                            totalRound = 1;
-                        }
-
-                        //lặp qua các bảng
-                        for (int a = 0; a < nunBoard; a++)
-                        {
-
-                            // tạo tên
-                            List<String> name = new List<String>();
-                            for (int j = 1; j < board.Length; j++)
-                            {
-                                name.Add($"Team {board[a]}_{j}");
-                            }
-
-                            //lặp qua các phần tử của bảng
-                            for (int i = 0; i < totalRound / board.Length; i++)
-                            {
-                                Round r = new Round();
-                                r.Created = DateTime.Now;
-                                r.IsDelete = false;
-                                r.RoundName = "Vòng " + i;
-                                _context.Add(r);
-                                _context.SaveChanges();
-
-                                Board b = new Board();
-                                b.Name = board[a];
-                                b.IsDelete = false;
-                                b.Created = DateTime.Now;
-                                b.RoundId = r.Id;
-                                _context.Add(b);
-                                _context.SaveChanges();
-
-
-                                for (int k = 0; k < board.Length; k++)
-                                {
-                                    schedules.Add(new MatchScheduleAndResults
-                                    {
-                                        Schedule = DateTime.Now,
-                                        Status = "Pendding",
-                                        IsDelete = false,
-                                        BoardId = b.Id,
-                                        RoundId = r.Id,
-                                        SeasonOnTournamentId = season.Id,
-                                        SportClubId_1 = 0,
-                                        SportClubId_2 = 0,
-                                        SportClub1_Name = board[k],
-                                        SportClub2_Name = board[board.Count() - k - 1],
-                                    });
-                                }
-
-                                name = _icommon.RotateTeams(name);
-
-                            }
-                            name.Clear();
-                        }
-
-                        _context.MatchScheduleAndResults.AddRange(schedules);
-                        _context.SaveChanges();
-
-                        json.StatusCode = 200;
-                        season.MatchScheduleAndResults = schedules;
-                        json.Data = season;
-                        return Ok(json);
-                    }
-                    else if (vm.CompetitionForm == "Vòng loại trực tiếp theo bảng")
-                    {
-                        //tạo tên team
-                        List<string> teams = new List<string>();
-                        for (int i = 1; i <= numTeams; i++)
-                        {
-                            teams.Add("Team " + i);
-                        }
-                        //tạo bảng
-                        Dictionary<string, List<string>> board = _icommon.CreateGroups(teams, nunBoard);
-
-                        // tạo trận đấu vòng loại theo bảng
-                        Dictionary<string, List<Tuple<string, string>>> boardFixtures = _icommon.GenerateGroupFixtures(board);
-
-
-                        // chèn dữ liệu vòng loại
-                        // tạo vòng loại
-                        Round vong1 = new Round();
-                        vong1.RoundName = "Vòng 1";
-                        vong1.Created = DateTime.Now;
-                        vong1.IsDelete = false;
-                        _context.Add(vong1 );
-                        _context.SaveChanges();
-
-                        // lặp qua các bảng
-                        foreach (var item in boardFixtures)
-                        {
-                            // tạo bảng
-                            Board board1 = new Board();
-                            board1.Name = item.Key;
-                            board1.RoundId = vong1.Id;
-                            board1.Created = DateTime.Now;
-                            board1.IsDelete = false;
-                            _context.Add(board1);
-                            _context.SaveChanges();
-                            // chèn lịch thi đâu theo bảng
-                            foreach (var fixture in item.Value)
-                            {
-                                MatchScheduleAndResults schedule = new MatchScheduleAndResults();
-                                schedule.SportClubId_1 = 0;
-                                schedule.SportClubId_2 = 0;
-                                schedule.SportClub1_Name = fixture.Item1;
-                                schedule.SportClub2_Name = fixture.Item2;
-                                schedule.BoardId = board1.Id;
-                                schedule.RoundId = vong1.Id;
-                                schedule.IsDelete = false;
-                                schedule.Winner = "";
-                                schedule.Schedule = DateTime.Now;
-                                schedule.SeasonOnTournamentId = season.Id;
-                                schedule.Status = "Pending";
-                                _context.Add(schedule);
-                                _context.SaveChanges();
-                            }
-                        }
-
-                        //tạo đôi chiến thắng ngẫu nhiên sau vòng loại
-                        Dictionary<string, List<string>> boardResults = _icommon.SimulateGroupStage(boardFixtures);
-
-                        //lấy ngẫu nhiên đội thắng
-                        List<string> topTeams = _icommon.GetTopTeams(boardResults);
-
-                        // tự đánh vòng sau loại 
-                        //tạo vòng bán kết
-                        List<List<Tuple<string, string>>> knockoutFixtures = _icommon.GenerateKnockoutFixtures(topTeams);
-
-                        // chèn dữ liệu vòng bán kết
-                        foreach (var round in knockoutFixtures)
-                        {
-                           
-                            Round round2 =  new Round();
-                            round2.RoundName = $"{knockoutFixtures.IndexOf(round) + 2}";
-                            round2.Created = DateTime.Now;
-                            round2.IsDelete = false;
-                            round2.SeasonOnTournamentId = season.Id;
-
-                            _context.Add(round2);
-                            _context.SaveChanges();
-                            Board board2 = new Board();
-                            board2.Name = "Sau vòng bảng";
-                            board2.IsDelete = false;
-                            board2.Created = DateTime.Now;
-                            board2.RoundId = round2.Id;
-                            _context.Add(board2);
-                            _context.SaveChanges();
-                            foreach (var match in round)
-                            {
-                                MatchScheduleAndResults schedule = new MatchScheduleAndResults();
-                                schedule.SportClubId_1 = 0;
-                                schedule.SportClubId_2 = 0;
-                                schedule.SportClub1_Name = match.Item1;
-                                schedule.SportClub2_Name = match.Item2;
-                                schedule.BoardId = board2.Id;
-                                schedule.RoundId = round2.Id;
-                                schedule.IsDelete = false;
-                                schedule.Winner = "";
-                                schedule.Schedule = DateTime.Now;
-                                schedule.SeasonOnTournamentId = season.Id;
-                                schedule.Status = "Pending";
-                                _context.Add(schedule);
-                                _context.SaveChanges();
-                            }
-                        }
-
-                    }
 
                 }
                 else
@@ -554,11 +319,21 @@ namespace vTournamentss.Areas.Admin.Controllers
                     }
 
                     _context.Update(season);
-                    json.StatusCode = 200;
-                    json.Data = season;
+
+                    //xóa tất cả lịch thi đấu cũ
+                    List<MatchScheduleAndResults> match = _context.MatchScheduleAndResults.Where(i=>i.SeasonOnTournamentId == season.Id && season.IsDelete == false).ToList();
+                    for (int i = 0; i< match.Count; i++)
+                    {
+                        match[i].IsDelete = true;
+                        _context.Update(match[i]);
+                    }
+                    _context.SaveChanges();
+
+                    //tạo lịch thi đáu mới
+                    json = _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
+                    json.Data[0] = season;
                     return Ok(json);
                 }
-                return Ok(json);
             }
             catch (Exception ex)
             {

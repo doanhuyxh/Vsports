@@ -1,4 +1,6 @@
-﻿namespace vsports.Services
+﻿using vsports.Models;
+
+namespace vsports.Services
 {
     public interface ICommon
     {
@@ -14,5 +16,13 @@
         List<string> GetTopTeams(Dictionary<string, List<string>> groupResults);
         List<List<Tuple<string, string>>> GenerateKnockoutFixtures(List<string> topTeams);
         List<string> SimulateKnockoutStage(List<List<Tuple<string, string>>> knockoutFixtures);
+
+
+        List<List<string>> GenerateGroupFixtures(List<string> teams, string groupName); // chuyền danh sách đội và bảng
+
+        //tạo lịch thi đấu theo loại
+        JsonResultVM CreateSchedule(int numTeams, int numBoard, int numRound, int seasionId, string typle);
+
+
     }
 }
