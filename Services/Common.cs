@@ -309,13 +309,13 @@ namespace vsports.Services
                             _context.Add(round);
                             _context.SaveChanges();
 
-                            Board board = new Board();
-                            board.Id = 0;
-                            board.RoundId = round.Id;
-                            board.Name = "A";
-                            board.Created = DateTime.Now;
-                            board.IsDelete = false;
-                            _context.Add(board);
+                            Board board3 = new Board();
+                            board3.Id = 0;
+                            board3.RoundId = round.Id;
+                            board3.Name = "A";
+                            board3.Created = DateTime.Now;
+                            board3.IsDelete = false;
+                            _context.Add(board3);
                             _context.SaveChanges();
 
                             // thêm lịch
@@ -324,13 +324,13 @@ namespace vsports.Services
                                 MatchScheduleAndResults.Add(new MatchScheduleAndResults()
                                 {
                                     RoundId = round.Id,
-                                    BoardId = board.Id,
+                                    BoardId = board3.Id,
                                     Created = DateTime.Now,
                                     SportClub1_Name = name[k],
                                     SportClub2_Name = name[name.Count - 1 - k],
                                     SportClubId_1 = 0,
                                     SportClubId_2 = 0,
-                                    SeasonOnTournamentId = season.Id,
+                                    SeasonOnTournamentId = seasionId,
                                     Schedule = DateTime.Now,
                                     Status = "Pennding",
                                     Winner = "",
