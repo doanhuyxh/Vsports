@@ -43,7 +43,7 @@ namespace vsports.Data
                         .HasOne(s => s.Owner)
                         .WithMany(u => u.SportClubs)
                         .HasForeignKey(sc => sc.OwnerId);
-            
+
             modelBuilder.Entity<SportClub>()
                         .HasOne(s => s.Sport)
                         .WithMany(u => u.SportClubs)
@@ -53,7 +53,7 @@ namespace vsports.Data
                         .HasOne(s => s.SportClub)
                         .WithMany(u => u.ClubMembers)
                         .HasForeignKey(sc => sc.SportClubId)
-                        .OnDelete(DeleteBehavior.NoAction); 
+                        .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ClubMember>()
                         .HasOne(s => s.User)
@@ -91,10 +91,22 @@ namespace vsports.Data
                         .HasForeignKey(sc => sc.TournamentsId)
                         .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Board>()
+                .HasOne(b => b.Round)
+                .WithMany(r => r.Boards)
+                .HasForeignKey(s => s.RoundId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<MatchScheduleAndResults>()
                         .HasOne(s => s.Round)
                         .WithMany(u => u.MatchScheduleAndResults)
                         .HasForeignKey(sc => sc.RoundId)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+           modelBuilder.Entity<MatchScheduleAndResults>()
+                        .HasOne(s => s.Board)
+                        .WithMany(u => u.MatchScheduleAndResults)
+                        .HasForeignKey(sc => sc.BoardId)
                         .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<MatchScheduleAndResults>()
@@ -102,19 +114,6 @@ namespace vsports.Data
                         .WithMany(u => u.MatchScheduleAndResults)
                         .HasForeignKey(sc => sc.SeasonOnTournamentId)
                         .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<MatchScheduleAndResults>()
-                        .HasOne(f => f.SportClub1)
-                        .WithMany()
-                        .HasForeignKey(f => f.SportClubId_1)
-                        .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<MatchScheduleAndResults>()
-                        .HasOne(f => f.SportClub2)
-                        .WithMany()
-                        .HasForeignKey(f => f.SportClubId_2)
-                        .OnDelete(DeleteBehavior.NoAction);
-
         }
         #endregion
     }
