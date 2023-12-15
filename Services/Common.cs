@@ -288,6 +288,25 @@ namespace vsports.Services
 
         }
 
+        public string GetRoundName(int round)
+        {
+            switch (round)
+            {
+                case 1:
+                    return "Loại";
+                case 2:
+                    return "Tứ Kết";
+                case 3:
+                    return "Bán Kết";
+                case 4:
+                    return "Chung Kết";
+                case 5:
+                    return "Đặc biệt";
+                default:
+                    return $"Vòng {round}";
+            }
+        }
+
         public async Task<JsonResultVM> CreateSchedule(int numTeams, int numBoard, int numRound, int seasionId, string typle)
         {
             JsonResultVM json = new JsonResultVM();
@@ -317,7 +336,7 @@ namespace vsports.Services
                             round.Created = DateTime.Now;
                             round.IsDelete = false;
                             _context.Add(round);
-                          await  _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync();
 
                             Board board3 = new Board();
                             board3.Id = 0;
@@ -506,6 +525,8 @@ namespace vsports.Services
                     //tạo vòng bán kết
                     List<List<Tuple<string, string>>> knockoutFixtures = GenerateKnockoutFixtures(topTeams);
 
+
+
                     // chèn dữ liệu vòng bán kết
                     foreach (var round in knockoutFixtures)
                     {
@@ -612,7 +633,7 @@ namespace vsports.Services
                         Board b = new Board();
                         b.Created = DateTime.Now;
                         b.RoundId = rounds[i].Id;
-                        b.Name = "Bảng A";
+                        b.Name = "Bảng B";
                         _context.Add(a);
                         await _context.SaveChangesAsync();
 
@@ -705,7 +726,90 @@ namespace vsports.Services
                     await _context.SaveChangesAsync();
 
                     break;
+                #endregion
+
+                #region VongLoaiTrucTiep
+                case "Vòng loại trực tiếp":
+
+
+                    List<String> nameVL = new List<string>();
+                    for (int i = 1; i <= numTeams; i++)
+                    {
+                        nameVL.Add("Team " + i);
+                    }
+
+                    // vòng loại 1/8
+                    
+
+                    // lặp qua từng vòng
+                    int rount = 1;
+                    while (nameVL.Count > 1)
+                    {
+
+                        Round vong18 = new Round();
+                        vong18.Created = DateTime.Now;
+                        vong18.IsDelete = false;
+                        vong18.SeasonOnTournamentId = seasionId;
+                        vong18.RoundName = GetRoundName(rount);
+                        _context.Add(vong18);
+                        _context.SaveChanges();
+
+                        Board bangAo1 = new Board();
+                        bangAo1.Created = DateTime.Now;
+                        bangAo1.IsDelete = false;
+                        bangAo1.RoundId = vong18.Id;
+                        bangAo1.Name = "A";
+                        _context.Add(bangAo1);
+                        _context.SaveChanges();
+
+                        // thêm lịch thi đấu
+                        int matchCount = nameVL.Count / 2;
+                        for (int i = 0; i < matchCount; i++)
+                        {
+                            Console.WriteLine($"{nameVL[i]} vs {nameVL[nameVL.Count - i - 1]}");
+
+                            MatchScheduleAndResults match2 = new MatchScheduleAndResults();
+                            match2.BoardId = bangAo1.Id;
+                            match2.RoundId = vong18.Id;
+                            match2.Created = DateTime.Now;
+                            match2.IsDelete = false;
+                            match2.SeasonOnTournamentId = seasionId;
+                            match2.SportClubId_2 = 0;
+                            match2.SportClubId_1 = 0;
+                            match2.SportClub1_Name = nameVL[i];
+                            match2.SportClub2_Name = nameVL[nameVL.Count - i - 1];
+                            match2.Winner = "";
+                            match2.Status = "Pending";
+                            match2.Schedule = DateTime.Now;
+                            _context.Add(match2);
+                            await _context.SaveChangesAsync();
+                        }
+
+                        //Cập nhật danh sách đội cho vòng kế tiếp
+                        List<string> winners = new List<string>();
+                        int matchCountNextRound = nameVL.Count / 2;
+                        for (int i = 0; i < matchCountNextRound; i++)
+                        {
+                            winners.Add((string.Compare(nameVL[i], nameVL[nameVL.Count - i - 1]) < 0) ? nameVL[i] : nameVL[nameVL.Count - i - 1]);
+                        }
+
+                        // Kiểm tra số lẻ và tự động cho một đội vào vòng tiếp theo mà không cần thi đấu
+                        if (nameVL.Count % 2 != 0)
+                        {
+                            Console.WriteLine($"{nameVL[nameVL.Count / 2]} sẽ đi tiếp mà không cần thi đấu");
+                            winners.Add(nameVL[nameVL.Count / 2]);
+                        }
+
+                        nameVL = winners;
+                        rount++;
+                    }
+
+
+
+                    break;
                     #endregion
+
+
             }
 
             return json;
