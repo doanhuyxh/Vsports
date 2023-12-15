@@ -114,6 +114,26 @@ namespace vsports.Data
                         .WithMany(u => u.MatchScheduleAndResults)
                         .HasForeignKey(sc => sc.SeasonOnTournamentId)
                         .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<GhiBan>()
+                        .HasOne(s => s.matchScheduleAndResults)
+                        .WithMany(u => u.GhiBan)
+                        .HasForeignKey(sc => sc.matchScheduleAndResults)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PenaltyCard>()
+                        .HasOne(s => s.matchScheduleAndResults)
+                        .WithMany(u => u.PenaltyCard)
+                        .HasForeignKey(sc => sc.matchScheduleAndResults)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ChangePlayer>()
+                        .HasOne(s => s.matchScheduleAndResults)
+                        .WithMany(u => u.ChangePlayer)
+                        .HasForeignKey(sc => sc.matchScheduleAndResults)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+
         }
         #endregion
     }

@@ -29,5 +29,9 @@ namespace vsports.Models
 
         public string Status { get; set; } //Pending, Playing, Finished, Cancel
         public string? Winner { set; get; } // SportClubId_1 or SportClubId_2
+
+        public virtual ICollection<GhiBan> GhiBan { get; set; }
+        public virtual ICollection<PenaltyCard> PenaltyCard { get; set; }
+        public virtual ICollection<ChangePlayer> ChangePlayer { get; set; }
     }
 }
