@@ -1,1 +1,25 @@
-﻿
+﻿@model vsports.Models.AccountViewModels.ProfileVM
+
+
+<div class="main-gd ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 cpl-md-12 d-flex justify-content-center">
+                <img class="img-fluid" src="@Model.ApplicationUserMain.avatarImage" />
+            </div>
+            <div class="col-12 col-md-12 d-flex justify-content-center mt-3 mb-4">
+                <h4>Tên đăng nhập: @ViewBag.user</h4>
+            </div>
+            <div class="col-12 col-md-3">
+
+                <a href="/user/leagues" class="btn  btn-primary px-5 mb-5 w-100">Mùa giải của bạn</a>
+
+            </div> 
+            <div class="col-12 col-md-3">
+
+                <a href="/user/leagues" class="btn  btn-primary px-5 mb-5 w-100">CLB của bạn</a>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -92,9 +92,19 @@
         </ul>
     </div>
 </div>
+
+@{
+    int matchCount = 1;
+    // Grouping matches by RoundId
+    var groupedMatches = Model.MatchScheduleAndResults
+        .GroupBy(x => x.RoundId)
+        .ToList();
+}
 <div class="mt-4">
+@foreach (var group in groupedMatches)
+{
     <div class="box-header blue-background">
-        <div class="title">Vòng 1</div>
+        <div class="title">@group.First().Round.RoundName</div>
     </div>
     <table class="table table-bordered">
         <thead>
@@ -110,46 +120,55 @@
                 <th>Live</th>
                 <th>Trạng thái</th>
                 <th>Action</th>
+                <!-- Các cột khác -->
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>06-12-2023</td>
-                <td>08:00</td>
-                <td>a</td>
-                <td>2 - 1</td>
-                <td>b</td>
-                <td>b</td>
-                <td>Vòng 1</td>
-                <td>
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+            @foreach (var match in group)
+            {
+                <tr>
+                    <!-- Hiển thị thông tin của từng trận đấu -->
+                    <td>@matchCount</td>
+                    <td>@match.Schedule.ToShortDateString()</td>
+                    <td>@match.Schedule.ToShortTimeString()</td>
+                    <td>@match.SportClub1_Name</td>
+                    <td>@match.Winner</td>
+                    <td>@match.SportClub2_Name</td>
+                    <td>@group.First().Round.RoundName</td>
+                    <td>Sân thi đấu</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
 
-                </td>
-                <td>
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                    </td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
 
-                </td>
-                <td>
-                    <button class="btn btn-info btn-xs has-tooltip"
-                            data-placement="top" title="Cập nhật lịch và sân thi đấu" data-original-title="Cập nhật lịch và sân thi đấu">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        + <i class="icon-location-arrow"></i>
-                    </button>
-                    <a class="btn btn-success btn-xs has-tooltip" data-placement="top" title="Thông số trận đấu"
-                       href="/system/soccer/match/MatchDetail/1059957"
-                       data-original-title="Thông số trận đấu">
-                        <i class="fa-solid fa-gears"></i> Thông số
-                    </a>
-                    <a class="btn btn-info btn-xs has-tooltip" data-placement="top" title="Sửa"
-                       href="/system/soccer/match/EditMatch/1059957">
-                        <i class="fa-solid fa-pen-to-square"></i> Sửa
-                    </a>
-                    <a class="btn btn-danger btn-xs">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-xs has-tooltip"
+                                data-placement="top" title="Cập nhật lịch và sân thi đấu" data-original-title="Cập nhật lịch và sân thi đấu">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            + <i class="icon-location-arrow"></i>
+                        </button>
+                        <a class="btn btn-success btn-xs has-tooltip" data-placement="top" title="Thông số trận đấu"
+                           href="/system/soccer/match/MatchDetail/1059957"
+                           data-original-title="Thông số trận đấu">
+                            <i class="fa-solid fa-gears"></i> Thông số
+                        </a>
+                        <a class="btn btn-info btn-xs has-tooltip" data-placement="top" title="Sửa"
+                           href="/system/soccer/match/EditMatch/1059957">
+                            <i class="fa-solid fa-pen-to-square"></i> Sửa
+                        </a>
+                        <a class="btn btn-danger btn-xs">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                    <!-- Các cột khác -->
+                </tr>
+                matchCount++;
+            }
         </tbody>
     </table>
+}
 </div>
+

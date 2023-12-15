@@ -268,6 +268,7 @@ namespace vTournamentss.Areas.Admin.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("/add/season/main")]
         //Tạo mùa giải
         public async Task<IActionResult> SaveDataSeason(SeasonOnTournamentsVM vm)
         {
@@ -294,11 +295,12 @@ namespace vTournamentss.Areas.Admin.Controllers
                     season.Created = DateTime.Now;
                     season.IsDelete = false;
                     _context.Add(season);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
 
-                    json = _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
+                    json = await _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
                     json.Data = season;
-                    return Ok(json);
+                    return Json(new { Code = 200, Message = "Tạo thành công", Data = season });
+
 
 
                 }
@@ -330,7 +332,7 @@ namespace vTournamentss.Areas.Admin.Controllers
                     _context.SaveChanges();
 
                     //tạo lịch thi đáu mới
-                    json = _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
+                    json = await _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
                     json.Data[0] = season;
                     return Ok(json);
                 }

@@ -8,10 +8,40 @@
         <div class="d-flex mb-4">
 
             <div class="">
-                <a href="/season/add" class="btn btn-outline-success">Tạo giải đấu</a>
+                <a href="/season/add/@Model.TournamentsMain.Id" class="btn btn-outline-success">Tạo giải đấu</a>
             </div>
         </div>
-        <div class="main-list">
+
+        <div class="position-relative">
+            <img src="@Model.TournamentsMain.BackgroudImage" class="img-fluid"/>
+            <div class="pointer" style="z-index: 2;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="camera-change">
+                    <svg width="20.6" height="20.6" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26.152 3.6537H22.8258C22.2651 3.6537 21.766 3.29614 21.5859 2.76622L21.2567 1.79642C21.0766 1.2665 20.5776 0.908936 20.0168 0.908936H14.5375H13.7787H8.29942C7.73863 0.908936 7.23958 1.2665 7.05951 1.79642L6.73282 2.76365C6.55275 3.29614 6.0537 3.65113 5.49291 3.65113H5.09162V2.89484C5.09162 2.56814 4.82666 2.30318 4.49996 2.30318H2.97452C2.64782 2.30318 2.38286 2.56814 2.38286 2.89484V3.6537H2.16678C1.44393 3.6537 0.857422 4.24021 0.857422 4.96306V20.202C0.857422 20.9249 1.44393 21.5114 2.16678 21.5114H26.152C26.8748 21.5114 27.4613 20.9249 27.4613 20.202V4.96306C27.4613 4.24021 26.8748 3.6537 26.152 3.6537ZM14.1594 19.7853C10.2699 19.7853 7.11868 16.6315 7.11868 12.7446C7.11868 8.8577 10.2725 5.70392 14.1594 5.70392C18.0489 5.70392 21.2001 8.8577 21.2001 12.7446C21.2001 16.6315 18.0489 19.7853 14.1594 19.7853Z" fill="#424242"></path>
+                        <path d="M18.7606 14.65C19.8132 12.1088 18.6065 9.19546 16.0653 8.14285C13.5242 7.09024 10.6108 8.29696 9.5582 10.8381C8.50559 13.3793 9.71231 16.2926 12.2535 17.3453C14.7947 18.3979 17.708 17.1911 18.7606 14.65Z" fill="#424242"></path>
+                    </svg>
+                </div>
+            </div>
+          
+           
+        </div>
+        <div class="position-relative">
+            <div class="avata-main">
+                <div class="img-main">
+                    <img class="img-fluid" src="@Model.TournamentsMain.AvatarImage" />
+                </div>
+            </div>
+            <div class="pointer" style="z-index: 2;">
+                <div class="camera-change-img">
+                    <svg width="20.6" height="20.6" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26.152 3.6537H22.8258C22.2651 3.6537 21.766 3.29614 21.5859 2.76622L21.2567 1.79642C21.0766 1.2665 20.5776 0.908936 20.0168 0.908936H14.5375H13.7787H8.29942C7.73863 0.908936 7.23958 1.2665 7.05951 1.79642L6.73282 2.76365C6.55275 3.29614 6.0537 3.65113 5.49291 3.65113H5.09162V2.89484C5.09162 2.56814 4.82666 2.30318 4.49996 2.30318H2.97452C2.64782 2.30318 2.38286 2.56814 2.38286 2.89484V3.6537H2.16678C1.44393 3.6537 0.857422 4.24021 0.857422 4.96306V20.202C0.857422 20.9249 1.44393 21.5114 2.16678 21.5114H26.152C26.8748 21.5114 27.4613 20.9249 27.4613 20.202V4.96306C27.4613 4.24021 26.8748 3.6537 26.152 3.6537ZM14.1594 19.7853C10.2699 19.7853 7.11868 16.6315 7.11868 12.7446C7.11868 8.8577 10.2725 5.70392 14.1594 5.70392C18.0489 5.70392 21.2001 8.8577 21.2001 12.7446C21.2001 16.6315 18.0489 19.7853 14.1594 19.7853Z" fill="#424242"></path>
+                        <path d="M18.7606 14.65C19.8132 12.1088 18.6065 9.19546 16.0653 8.14285C13.5242 7.09024 10.6108 8.29696 9.5582 10.8381C8.50559 13.3793 9.71231 16.2926 12.2535 17.3453C14.7947 18.3979 17.708 17.1911 18.7606 14.65Z" fill="#424242"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="main-list" style="margin-top: 6em;">
+
             <div class="head-title-left position-relative">
                 <h2 class="text-black  pt-2">Danh sách giải đấu của @Model.TournamentsMain.Name </h2>
             </div>
@@ -38,5 +68,49 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chọn ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="box">
+                        <div class="js--image-preview"></div>
+                        <div class="upload-options">
+                            <label>
+                                <input type="file" class="image-upload" accept="image/*" asp-for="BackgroudFile" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@section Scripts{
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.js--image-preview').css('background-image', 'url(' + e.target.result + ')');
+                    $('.js--image-preview').addClass('js--no-default');
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".image-upload").change(function () {
+            readURL(this);
+        });
+    </script>
+}

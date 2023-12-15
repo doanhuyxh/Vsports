@@ -1,45 +1,178 @@
-﻿
-@model List<vsports.Models.Tournaments>
-<div class="main-gd ">
+﻿@model List<vsports.Models.Tournaments>
+
+@section Styles{
+    <link href="~/css/404.css" rel="stylesheet" />
+    }
+<div class="main-gd" id="muagiai_vue">
     <div class="container">
         <div class="d-flex mb-4">
-           
+
             <div class="">
-                <a class="btn btn-outline-success">Tạo mùa giải</a>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#addMuaGiai" class="btn btn-outline-success">Tạo mùa giải</button>
             </div>
         </div>
-        <div class="main-list">
-            <div class="head-title-left position-relative">
-                <h2 class="text-black  pt-2">Danh sách mùa giải</h2>
-            </div>
-            <div class="row mt-5 mb-5 pb-5">
-                @foreach(var items in Model)
-                {
-                    <div class="col-12 col-md-3 col-xl-3">
-                        
-                        <div class="card-main">
-                            <a href="/season/@items.Id">
-                            <div class="img-gd">
-                                <div class="img-border">
-                                    <img src="@items.AvatarImage" alt="">
+        @if (Model.Any())
+        {
+            <div class="main-list">
+                <div class="head-title-left position-relative">
+                    <h2 class="text-black  pt-2">Danh sách mùa giải</h2>
+                </div>
+                <div class="row mt-5 mb-5 pb-5">
+                    @foreach (var items in Model)
+                    {
+                        <div class="col-12 col-md-3 col-xl-3">
+
+                            <div class="card-main">
+                                <a href="/season/@items.Id">
+                                    <div class="img-gd">
+                                        <div class="img-border">
+                                            <img src="@items.AvatarImage" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="title-gd">
+                                        <p>@items.Name</p>
+                                    </div>
+                                </a>
+                                <div class="viewer-text">
+                                    <p>1 người theo dõi</p>
+                                </div>
+                                <div class="btn-theo-doi">
+                                    <a href="#" class="button-main">Xem mùa giải</a>
                                 </div>
                             </div>
-                            <div class="title-gd">
-                                <p>@items.Name</p>
-                            </div>
-                            </a>
-                            <div class="viewer-text">
-                                <p>1 người theo dõi</p>
-                            </div>
-                            <div class="btn-theo-doi">
-                                <a href="#" class="button-main">Xem mùa giải</a>
-                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row mt-5 mb-5 pb-5">
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <div class="col-sm-10 col-sm-offset-1  text-center">
+                        <div class="four_zero_four_bg">
+                        </div>
+                        <div class="contant_box_404">
+                            <h3 class="h2">
+                                Bạn chưa có mùa giải nào
+                            </h3>
+
+
+
                         </div>
                     </div>
-                }
-                
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <div class="modal fade" id="addMuaGiai" tabindex="-1" aria-labelledby="addMuaGiai" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMuaGiai">Tạo giải đấu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label">Tên mùa giải</label>
+                            <p id="word">0/70</p>
+                        </div>
+                        <input id="seasonInput" class="form-control" placeholder="Tên mùa giải" v-model="Name" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" v-on:click="addItems">Tạo giải đấu</button>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#seasonInput').on('input', function () {
+                var maxLength = 70;
+                var textLength = $(this).val().length;
+
+                $('#word').text(textLength + '/' + maxLength);
+
+                if (textLength > maxLength) {
+                    $(this).val($(this).val().substring(0, maxLength));
+                    alert("Nhập quá ký tự cho phép")
+                }
+            });
+        });
+
+    </script>
+    <script>
+        var muagiai_vue = new Vue({
+            el: "#muagiai_vue",
+            data: {
+                Name: "",
+            },
+            methods: {
+                async addItems() {
+                    try {
+                        $('#loadingMore').fadeIn();
+
+                        const formData = new FormData();
+
+                        formData.append('Name', this.Name);
+
+
+                        await axios.post('/user/leagues/add', formData,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            }).then((response) => {
+                                if (response.data.code == 200) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Thành công',
+                                        text: 'Đã lưu thành công',
+                                        confirmButtonText: 'OK'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.reload();
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lỗi',
+                                        text: `${response.data.message}`,
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+
+                            }).finally(() => {
+                                $('#loadingMore').fadeOut();
+                            });
+
+                    } catch (error) {
+                        $('#loadingMore').fadeIn();
+
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Đã có lỗi xảy ra',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+            }
+
+        });
+    </script>
+}

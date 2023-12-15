@@ -7,6 +7,7 @@ using System.Security.Claims;
 using vsports.Data;
 using vsports.Models;
 using vsports.Models.AccountViewModels;
+using Bogus.Bson;
 
 namespace vsports.Controllers
 {
@@ -35,21 +36,18 @@ namespace vsports.Controllers
         [HttpGet]
         public IActionResult Register() { return View(); }
 
+        [Route("/tai-khoan/dang-nhap")]
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
             var user = await _userManager.FindByNameAsync(model.UserName);
-
             if (user != null && !user.IsActive)
             {
-                ModelState.AddModelError(string.Empty, "Tài khoản bị khoá");
-                return View(model);
-            }
+                return Json(new { code = 404, message = "Tài khoản bị khoá" });
 
+
+            }
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
 
             if (result.Succeeded)
@@ -60,7 +58,6 @@ namespace vsports.Controllers
 
                     var claims = new List<Claim> {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, role.FirstOrDefault()!),
                 };
 
@@ -81,71 +78,94 @@ namespace vsports.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity),
                         authProperties);
-
+                    if (role.Contains("Admin"))
+                    {
+                        return Json(new { code = 208, message = "Thành công", red = "/Admin" });
+                    }
+                    else
+                    {
+                        return Json(new { code = 200, message = "Thành công", section = true });
+                    }
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("err", ex.Message);
-                    return View(model);
+                    throw;
                 }
 
 
-                if (role.Contains("Admin"))
-                {
-                    return Redirect("/Admin/Dashboard/Index");
-                }
-                else if (role.Contains("User"))
-                {
-                    return Redirect("/User/UserHome/Index");
-                    //return Ok(user);
-                }
-                else
-                {
-                    // Vai trò không được xác định hoặc không có chuyển hướng tương ứng
-                    return Redirect("/Home/Index");
-                }
             }
             else
             {
+
                 ModelState.AddModelError(string.Empty, "Tài khoản hoặc mật khẩu bị lỗi");
-                return View(model);
+                return Json(new { code = 400, message = "Tài khoản hoặc mật khẩu không tồn tại" });
+
             }
 
+
         }
+
+        [Route("/tai-khoan/dang-ky-tai-khoan")]
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+
+            var existingUser = await _userManager.FindByNameAsync(model.UserName);
+            if (existingUser != null)
             {
-                ApplicationUser user = model;
-                var result = await _userManager.CreateAsync(user, model.PasswordHash);
+                // Username already exists
+                ModelState.AddModelError("UserName", "The account already exists on the system");
+                return Json(new { code = 400, message = "The account already exists on the system" });
 
-                if (result.Succeeded)
-                {
-                    // Set role member
-                    await _userManager.AddToRoleAsync(user, "User");
-                    // Automatically sign in the user
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    return Ok(result);
-                    //return RedirectToAction("Index", "Home");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
             }
-            return View(model);
+            if (model.ConfirmPassword != model.PasswordHash)
+            {
+                return Json(new { code = 400, message = "Passwords are not the same" });
+            }
+            ApplicationUser user = model;
+            user.avatarImage = "/upload/img_avatar/blank_avatar.png";
+            user.IsActive = true;
+            user.Email = model.UserName;
+            user.FullName = model.UserName;
+            user.UserName = model.UserName;
+            var result = await _userManager.CreateAsync(user, model.PasswordHash);
+
+            if (result.Succeeded)
+            {
+                //_icommon.SendEmail(user);
+                // Set role member
+                await _userManager.AddToRoleAsync(user, "User");
+                // Automatically sign in the user
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return Json(new { code = 200, message = "Thành công", section = true });
+            }
+            foreach (var error in result.Errors)
+            {
+
+                ModelState.AddModelError("", error.Description);
+                return Json(new { code = 400, message = "Mật khẩu phải có ít nhất 1 chữ hoa và ký tự đặc biệt" });
+
+            }
+
+            return Json(new { code = 400, message = "Kiểm tra lại các trường" });
+
         }
 
-        [HttpPost]
+
+        [Route("/dang-xuat")]
+
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(
+               CookieAuthenticationDefaults.AuthenticationScheme,
+         new AuthenticationProperties { RedirectUri = "/Home/Index" }
+          );
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home"); // Chuyển hướng đến trang chủ hoặc trang khác
+            return Redirect("/");
         }
-
         public IActionResult AccessDenied()
         {
             return View();

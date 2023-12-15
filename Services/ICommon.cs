@@ -21,7 +21,7 @@ namespace vsports.Services
         List<List<string>> GenerateGroupFixtures(List<string> teams, string groupName); // chuyền danh sách đội và bảng
 
         //tạo lịch thi đấu theo loại
-        JsonResultVM CreateSchedule(int numTeams, int numBoard, int numRound, int seasionId, string typle);
+        Task<JsonResultVM> CreateSchedule(int numTeams, int numBoard, int numRound, int seasionId, string typle);
 
 
     }

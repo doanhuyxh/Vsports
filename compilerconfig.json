@@ -25,6 +25,16 @@
     "minify": { "enabled": false }
   },
   {
+    "outputFile": "wwwroot/css/modal.css",
+    "inputFile": "wwwroot/scss/modal.scss",
+    "minify": { "enabled": false }
+  },
+  {
+    "outputFile": "wwwroot/css/404.css",
+    "inputFile": "wwwroot/scss/404.scss",
+    "minify": { "enabled": false }
+  },
+  {
     "outputFile": "wwwroot/css/root.css",
     "inputFile": "wwwroot/scss/root.scss",
     "minify": { "enabled": false }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System.Linq;
 using vsports.Data;
+using vsports.Models;
 
 namespace vsports.Controllers
 {
@@ -16,19 +18,24 @@ namespace vsports.Controllers
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
         private readonly string userName;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TournamentsController(ILogger<TournamentsController> logger, IMemoryCache memoryCache, ApplicationDbContext context, IConfiguration configuration, IHttpContextAccessor accessor)
+
+        public TournamentsController(ILogger<TournamentsController> logger, IMemoryCache memoryCache, ApplicationDbContext context, IConfiguration configuration, IHttpContextAccessor accessor, UserManager<ApplicationUser> userManager)
         {
             _memoryCache = memoryCache;
             _configuration = configuration;
             _context = context;
             userName = accessor.HttpContext.User.Identity.Name ?? "";
             _logger = logger;
+            _userManager = userManager;
         }
 
-        [Route("leagues")]
+        [Route("/user/leagues")]
         public IActionResult Index()
         {
+            ViewBag.user = HttpContext.User.Identity.Name;
+
             var user = _context.ApplicationUser.Where(x => x.UserName == userName).FirstOrDefault();
             if (user != null)
             {
@@ -37,6 +44,41 @@ namespace vsports.Controllers
                 return View(rs);
             }
             return View();
+
+        } 
+        [HttpPost("/user/leagues/add")]
+        public async Task<IActionResult> Add (Tournaments model)
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+
+                    var userCheck = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+
+                    model.SportId = 1;
+                    model.Created = DateTime.Now;
+                    model.UserId = userCheck.Id;
+                    model.Point = 0;
+                    model.IsDelete = false;
+                    model.BackgroudImage = "/upload/img/cover.jpg";
+                    model.AvatarImage = "/upload/img/vstation.jpg";
+
+                    _context.Tournaments.Add(model);
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { code = 200, message = "Thành công" });
+                }
+                return Json(new { code = 404, message = "Bạn chưa đăng nhập" });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 404, message = ex.Message });
+
+            }
+
+
 
         }
         // trang chi tiết giải đấu

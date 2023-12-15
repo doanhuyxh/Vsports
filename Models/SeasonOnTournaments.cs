@@ -17,6 +17,8 @@ namespace vsports.Models
         public string Address { get; set; }
         public string CompetitionForm { get; set; }
         public string SeasonRules { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Description { get; set; }
 
         public int TeamsNumber { get; set; }
         public int MemberOfTeam { get; set; }

@@ -15,6 +15,8 @@ namespace vsports.Models.SeasonOnTournamentsVM
         public string Address { get; set; }
         public string CompetitionForm { get; set; }
         public string SeasonRules { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Description { get; set; }
 
 
         public int TeamsNumber { get; set; }
@@ -32,10 +34,15 @@ namespace vsports.Models.SeasonOnTournamentsVM
 
         public Tournaments? Tournaments { get; set; }
         public List<MatchScheduleAndResults> MatchScheduleAndResults { get; set; }
+        public List<CombinedData> MatchScheduleAndResultsList { get; set; }
         public List<SeasonOnTournaments> SeasonOnTournamentsList { get; set; }
         public Tournaments TournamentsMain { get; set; }
         public SeasonOnTournaments SeasonOnTournamentsMain { get; set; }
-
+        public class CombinedData
+        {
+            public SeasonOnTournaments SeasonOnTournaments { get; set; }
+            public MatchScheduleAndResults MatchScheduleAndResults { get; set; }
+        }
         public static implicit operator SeasonOnTournamentsVM(SeasonOnTournaments item)
         {
             return new SeasonOnTournamentsVM
@@ -58,6 +65,8 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 NumberBoard = item.NumberBoard,
                 NumberTeamOnRoud = item.NumberTeamOnRoud,
                 numberOfRounds = item.numberOfRounds,
+                PhoneNumber = item.PhoneNumber,
+                Description = item.Description,
             };
         }
         public static implicit operator SeasonOnTournaments(SeasonOnTournamentsVM item)
@@ -81,7 +90,10 @@ namespace vsports.Models.SeasonOnTournamentsVM
                 TimeFight = item.TimeFight,
                 NumberBoard = item.NumberBoard,
                 NumberTeamOnRoud = item.NumberTeamOnRoud,
-                numberOfRounds = item.numberOfRounds
+                numberOfRounds = item.numberOfRounds,
+                PhoneNumber = item.PhoneNumber,
+                Description = item.Description,
+
             };
         }
 

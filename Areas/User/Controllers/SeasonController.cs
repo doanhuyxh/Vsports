@@ -2,8 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using vsports.Data;
+using vsports.Models;
 using vsports.Models.SeasonOnTournamentsVM;
+using static vsports.Models.SeasonOnTournamentsVM.SeasonOnTournamentsVM;
 
 namespace vsports.Controllers
 {
@@ -17,7 +21,8 @@ namespace vsports.Controllers
         private readonly ApplicationDbContext _context;
         private readonly string userName;
 
-        public SeasonController(ILogger<SeasonController> logger, IMemoryCache memoryCache, ApplicationDbContext context, IConfiguration configuration, IHttpContextAccessor accessor) {
+        public SeasonController(ILogger<SeasonController> logger, IMemoryCache memoryCache, ApplicationDbContext context, IConfiguration configuration, IHttpContextAccessor accessor)
+        {
             _memoryCache = memoryCache;
             _configuration = configuration;
             _context = context;
@@ -28,38 +33,84 @@ namespace vsports.Controllers
         [Route("season/{id}")]
         public IActionResult Index(int id)
         {
-            var tour = _context.Tournaments.Where(x=>x.Id == id).FirstOrDefault();
-            var rs = _context.SeasonOnTournaments.Include(x=>x.Tournaments).Where(x=>x.TournamentsId == id).ToList();
+            ViewBag.user = HttpContext.User.Identity.Name;
+
+            var tour = _context.Tournaments.Where(x => x.Id == id).FirstOrDefault();
+            var rs = _context.SeasonOnTournaments.Include(x => x.Tournaments).Where(x => x.TournamentsId == id).ToList();
             var items = new SeasonOnTournamentsVM
             {
                 TournamentsMain = tour,
                 SeasonOnTournamentsList = rs
             };
             return View(items);
-        }  
+        }
         [Route("season/details/{id}")]
         public IActionResult Details(int id)
         {
-            
-            var rs = _context.SeasonOnTournaments.Where(x=>x.Id == id).FirstOrDefault();
-            if(rs != null)
+            ViewBag.user = HttpContext.User.Identity.Name;
+
+            var rs = _context.SeasonOnTournaments
+                .Include(st => st.MatchScheduleAndResults)
+                    .ThenInclude(x=>x.Board)
+                        .ThenInclude(x=>x.Round)
+                .Where(x => x.Id == id).FirstOrDefault();
+            if (rs != null)
             {
                 var items = new SeasonOnTournamentsVM
                 {
-                    SeasonOnTournamentsMain = rs
+                    SeasonOnTournamentsMain = rs,
+                    MatchScheduleAndResults = rs.MatchScheduleAndResults.ToList()
                 };
+               
+
                 return View(items);
             }
             return NotFound();
-            
-        } 
-        [Route("season/add")]
-        public IActionResult Add()
+
+        }
+        [AllowAnonymous]
+        [Route("season/detailspost/{id}")]
+        public IActionResult DetailsPost(int id)
         {
-            return View();
+            ViewBag.user = HttpContext.User.Identity.Name;
+
+            var rs = _context.SeasonOnTournaments
+               .Include(st => st.MatchScheduleAndResults)
+                   .ThenInclude(x => x.Board)
+                       .ThenInclude(x => x.Round)
+               .Where(x => x.Id == id).FirstOrDefault();
+            if (rs != null)
+            {
+
+
+                var items = new SeasonOnTournamentsVM
+                {
+                    SeasonOnTournamentsMain = rs,
+                    MatchScheduleAndResults = rs.MatchScheduleAndResults.ToList()
+                };
+
+              
+
+                return Ok(items);
+            }
+            return Ok();
+
+        }
+        [Route("season/add/{id}")]
+        public IActionResult Add(int id)
+        {
+            ViewBag.user = HttpContext.User.Identity.Name;
+
+            var tour = _context.Tournaments.Where(x => x.Id == id).FirstOrDefault();
+
+            var items = new SeasonOnTournamentsVM
+            {
+                TournamentsMain = tour,
+            };
+            return View(items);
         }
         // trang chi tiết giải đấu
-       
+
 
     }
 }

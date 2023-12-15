@@ -30,7 +30,8 @@ namespace vsports.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.user = userName;
+            ViewBag.user = HttpContext.User.Identity.Name;
+
             return View();
         }
         [Route("/not-found")]

@@ -1,8 +1,9 @@
-﻿@{
+﻿@model vsports.Models.SeasonOnTournamentsVM.SeasonOnTournamentsVM
+
+@{
     ViewData["Title"] = "Tạo giải đấu";
 }
 
-@ViewBag.user
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div class="head-title-left position-relative">
         <h2 class="text-black  pt-2">Tạo giải đấu</h2>
@@ -15,79 +16,75 @@
     </div>
 </div>
 
-<div class="main-input">
+<div class="main-input" id="addMuaGiai_vue">
     <div class="title-mg">
         <p>Thông tin chung</p>
     </div>
     <div class="banner-img">
-        <div class="pointer" style="z-index: 2;">
+        <div class="pointer" style="z-index: 2;" id="pointer1">
             <div class="css-1mo9f0t">
-                <img class="chakra-image css-9nopxm"
-                     src="https://hcm01.vstorage.vngcloud.vn/v1/AUTH_77cdabdfd5ab49fd896ce6b19d7019dc/vstationfiles/L85OXrEFCT.png">
+                <img class="chakra-image css-9nopxm" id="previewImage1" src="https://hcm01.vstorage.vngcloud.vn/v1/AUTH_77cdabdfd5ab49fd896ce6b19d7019dc/vstationfiles/L85OXrEFCT.png">
                 <div class="css-lnmow7">
-                    <svg width="24" height="19" viewBox="0 0 24 19" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
+                    <svg width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.72727 0L7.36364 2.72727H1.90909C0.851455 2.72727 0 3.57872 0 4.63636V16.6364C0 17.694 0.851455 18.5455 1.90909 18.5455H22.0909C23.1485 18.5455 24 17.694 24 16.6364V4.63636C24 3.57872 23.1485 2.72727 22.0909 2.72727H16.6364L15.2727 0H8.72727ZM12 4.63636C15.3008 4.63636 18 7.33558 18 10.6364C18 13.9371 15.3008 16.6364 12 16.6364C8.69924 16.6364 6 13.9372 6 10.6364C6 7.33557 8.69924 4.63636 12 4.63636ZM12 6.81818C9.8784 6.81818 8.18182 8.51473 8.18182 10.6364C8.18182 12.758 9.8784 14.4545 12 14.4545C14.1217 14.4545 15.8182 12.758 15.8182 10.6364C15.8182 8.51472 14.1217 6.81818 12 6.81818Z"
                               fill="black"></path>
                     </svg>
                 </div>
+                <input type="file" ref="BackgroudFile" id="BackgroudFile" accept="image/gif, image/jpeg, image/png" onchange="previewFile()" style="display: none;"/>
             </div>
         </div>
         <div class="css-2jmtxl">
-            <div class="pointer" style="z-index: 2;">
+            <div class="pointer" style="z-index: 2;" id="pointer2">
                 <div class="css-1smkbbu">
                     <span class="chakra-avatar css-hhwi58" data-loaded="">
                         <img src="https://hcm01.vstorage.vngcloud.vn/v1/AUTH_77cdabdfd5ab49fd896ce6b19d7019dc/vstationfiles/L85OXrEFCT.png"
-                             class="chakra-avatar__img css-3a5bz2">
+                             class="chakra-avatar__img css-3a5bz2" id="previewImage2" >
                     </span>
                     <div class="css-qyskrw">
-                        <svg width="24" height="19" viewBox="0 0 24 19" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
+                        <svg width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.72727 0L7.36364 2.72727H1.90909C0.851455 2.72727 0 3.57872 0 4.63636V16.6364C0 17.694 0.851455 18.5455 1.90909 18.5455H22.0909C23.1485 18.5455 24 17.694 24 16.6364V4.63636C24 3.57872 23.1485 2.72727 22.0909 2.72727H16.6364L15.2727 0H8.72727ZM12 4.63636C15.3008 4.63636 18 7.33558 18 10.6364C18 13.9371 15.3008 16.6364 12 16.6364C8.69924 16.6364 6 13.9372 6 10.6364C6 7.33557 8.69924 4.63636 12 4.63636ZM12 6.81818C9.8784 6.81818 8.18182 8.51473 8.18182 10.6364C8.18182 12.758 9.8784 14.4545 12 14.4545C14.1217 14.4545 15.8182 12.758 15.8182 10.6364C15.8182 8.51472 14.1217 6.81818 12 6.81818Z"
                                   fill="black"></path>
                         </svg>
                     </div>
+                    <input type="file" ref="AvatarFile" id="AvatarFile" accept="image/gif, image/jpeg, image/png" onchange="previewFile2()" style="display: none;" />
                 </div>
             </div>
             <div class="chakra-input__group css-1jjx3q3" data-group="true" id="topScroll">
-                <input type="text" name="name" placeholder="Tên mùa giải" required="" aria-required="true"
-                       class="chakra-input css-1c0scgs" value="">
+                <input type="text" name="name" placeholder="Tên mùa giải" required aria-required="true"
+                       class="chakra-input css-1c0scgs" v-model="Name">
             </div>
         </div>
-        <div class="text-input mb-2">
-            <label class="form-label">Khu vực</label>
-            <input type="text" class="form-control" placeholder="Địa điểm tổ chức">
-        </div>
+      
         <div class="text-input mb-2">
             <label class="form-label">Địa chỉ</label>
-            <input type="text" class="form-control" placeholder="Địa chỉ">
+            <input type="text" class="form-control" v-model="Address" placeholder="Địa chỉ">
         </div>
         <div class="text-input mb-2">
             <label class="form-label">Số điện thoại</label>
-            <input type="number" class="form-control" placeholder="Số điện thoại">
+            <input type="number" class="form-control" v-model="PhoneNumber" placeholder="Số điện thoại">
         </div>
         <div class="text-input mb-2">
             <label class="form-label">Mô tả giải đấu</label>
-            <textarea rows="5" class="form-control" placeholder="Mô tả giải đấu"></textarea>
+            <textarea rows="5" class="form-control" placeholder="Mô tả giải đấu" v-model="Description"></textarea>
         </div>
         <div class="row m-w-50 mb-2">
             <div class="col-6">
                 <div class="text-input mb-2">
                     <label class="form-label">Ngày bắt đầu</label>
-                    <input type="date" class="form-control" placeholder="Ngày bắt đầu">
+                    <input type="date" class="form-control" placeholder="Ngày bắt đầu" v-model="Start">
                 </div>
             </div>
             <div class="col-6">
                 <div class="text-input mb-2">
                     <label class="form-label">Ngày kết thúc</label>
-                    <input type="date" class="form-control" placeholder="Ngày kết thúc">
+                    <input type="date" class="form-control" placeholder="Ngày kết thúc" v-model="End">
                 </div>
             </div>
         </div>
         <div class="text-input mb-2">
             <label class="form-label">Điều lệ giải đấu</label>
-            <p>Upload điều lệ dạng doc, docx, pdf, jpg, jpeg, png (Tối đa 1 tệp, tối đa 25Mb/tệp)</p>
-            <input type="file" class="form-control" placeholder="Chọn tệp">
+            <p>Upload điều lệ dạng jpg, png (Tối đa 1 tệp, tối đa 25Mb/tệp)</p>
+            <input type="text" class="form-control" placeholder="Chọn tệp" v-model="SeasonRules">
 
         </div>
         <p class="chakra-text css-af8857">Thông tin bộ môn</p>
@@ -103,10 +100,10 @@
                             <a href="#"><span>i</span></a>
                         </div>
                     </div>
-                    <select class="form-select">
-                        <option value="Tranh cúp">Tranh cúp</option>
-                        <option value="Vòng tròn">Vòng tròn</option>
-                        <option value="Loại trực tiếp">Loại trực tiếp</option>
+                    <select class="form-select" v-model="CompetitionForm">
+                        <option value="Hỗn Hợp">Tranh cúp</option>
+                        <option value="Theo vòng">Vòng tròn</option>
+                        <option value="Vòng loại trực tiếp theo bảng">Loại trực tiếp</option>
                     </select>
                     <div class="tooltip-main">
                         <p class="">Vòng tròn</p>
@@ -130,18 +127,160 @@
             </div>
             <div class="col-6 col-md-4">
                 <div class="text-input mb-2">
+                    <label class="form-label">Tổng số đội </label>
+                    <select class="form-select ten" v-model="TeamsNumber">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="col-6 col-md-4">
+                <div class="text-input mb-2">
                     <label class="form-label">Số VDV thi đấu</label>
-                    <select class="form-select ten">
+                    <select class="form-select ten" v-model="MemberOfTeam">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div>
+          
+            <div class="col-6 col-md-4">
+                <div class="text-input mb-2">
+                    <label class="form-label">Số lượt gặp nhau</label>
+                    <select class="form-select ten" v-model="numberOfRounds">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                       
                     </select>
                 </div>
             </div>
             <div class="col-6 col-md-4">
                 <div class="text-input mb-2">
-                    <label class="form-label">Số VDV dự bị</label>
-                    <select class="form-select tw">
+                    <label class="form-label">Số hiệp đấu mỗi trận</label>
+                    <select class="form-select ten" v-model="numberOfRoundsPerMatch">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                       
                     </select>
                 </div>
             </div>
+            <div class="col-6 col-md-4">
+                <div class="text-input mb-2">
+                    <label class="form-label">Số lượng HLV</label>
+                    <select class="form-select ten" v-model="numberOfCoaches">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                       
+                    </select>
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <div class="text-input mb-2">
+                    <label class="form-label">Thời gian thi đấu</label>
+                    <select class="form-select ten" v-model="TimeFight">
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                        <option value="35">35</option>
+                        <option value="40">40</option>
+                        <option value="45">45</option>
+                        <option value="50">50</option>
+                        <option value="55">55</option>
+                        <option value="60">60</option>
+                        <option value="65">65</option>
+                        <option value="70">70</option>
+                        <option value="75">75</option>
+                        <option value="80">80</option>
+                        <option value="85">85</option>
+                        <option value="90">90</option>
+                    </select>
+                </div>
+            </div>
+            <div v-if="CompetitionForm === 'Hỗn Hợp' || CompetitionForm === 'Vòng loại trực tiếp theo bảng'">
+                <p class="chakra-text css-af8857">Thiết lập bảng</p>
+
+                <div class="col-6 col-md-4">
+                    <div class="text-input mb-2">
+                        <label class="form-label">Số bảng</label>
+                        <select class="form-select ten" v-model="NumberBoard">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="text-input mb-2">
+                        <label class="form-label">Số team mỗi bảng</label>
+                        <select class="form-select ten" v-model="NumberTeamOnRoud">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+           
         </div>
         <p class="chakra-text css-af8857">Thiết lập đăng ký</p>
         <div class="d-flex m-w-50 justify-content-between align-items-center">
@@ -152,17 +291,15 @@
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
             </div>
         </div>
-        <div class="text-input mb-2 m-w-50">
-            <label class="form-label">Hạn đăng ký</label>
-            <input type="date" class="form-control" placeholder="Ngày kết thúc">
-        </div>
+        
         <div class="d-flex justify-content-center">
-            <button class="btn btn-success">Lưu</button>
+            <button class="btn btn-success" v-on:click="addMuaGiai">Lưu</button>
         </div>
     </div>
 </div>
 @section Scripts {
     <script>
+       
         $(document).ready(function () {
             // Sự kiện di chuột vào icon
             $('.tooltip-trigger').hover(
@@ -178,25 +315,146 @@
                     });
                 }
             );
+            $('#pointer1').click(function () {
+                $('#BackgroudFile').click();
+            });
+
+            $('#BackgroudFile').click(function (event) {
+                event.stopPropagation();
+            });
+            $('#pointer2').click(function () {
+                $('#AvatarFile').click();
+            });
+
+            $('#AvatarFile').click(function (event) {
+                event.stopPropagation();
+            });
         });
+        function previewFile() {
+            const fileInput = document.getElementById('BackgroudFile');
+         
+            const preview = document.getElementById('previewImage1');
+            const file = fileInput.files[0];
+            const reader = new FileReader();
 
+            reader.onloadend = function () {
+                preview.src = reader.result;
+                $(".css-lnmow7").hide();
+            };
 
-        const selectElement = document.querySelector('.ten');
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                const defaultImagePath = 'https://hcm01.vstorage.vngcloud.vn/v1/AUTH_77cdabdfd5ab49fd896ce6b19d7019dc/vstationfiles/L85OXrEFCT.png';
+                preview.src = defaultImagePath;
+            }
+        } 
+        function previewFile2() {
+            const AvatarFile = document.getElementById('AvatarFile');
+            const preview = document.getElementById('previewImage2');
+            const file = AvatarFile.files[0];
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                preview.src = reader.result;
+                $(".css-qyskrw").hide();
+            };
 
-        for (let i = 1; i <= 10; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.text = i;
-            selectElement.appendChild(option);
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                const defaultImagePath = 'https://hcm01.vstorage.vngcloud.vn/v1/AUTH_77cdabdfd5ab49fd896ce6b19d7019dc/vstationfiles/L85OXrEFCT.png';
+                preview.src = defaultImagePath;
+            }
         }
-        const selectElementtw = document.querySelector('.tw');
 
-        for (let i = 1; i <= 20; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.text = i;
-            selectElementtw.appendChild(option);
-        }
+       
 
+
+       
+
+    </script>
+    <script>
+        var addMuaGiai_vue = new Vue({
+            el: "#addMuaGiai_vue",
+            data: {
+                Name: "",
+                TournamentsId: "@Model.TournamentsMain.Id",
+                Start: "",
+                End: "",
+                Address: "",
+                CompetitionForm: "",
+                SeasonRules: "",
+                TeamsNumber: "",
+                MemberOfTeam: "",
+                numberOfRoundsPerMatch: "",
+                numberOfRounds: "",
+                numberOfCoaches: "",
+                TimeFight: "",
+                NumberBoard: "",
+                NumberTeamOnRoud: "",
+                BackgroudFile: "",
+                AvatarFile: "",
+                PhoneNumber: "",
+                Description: "",
+            },
+            methods:{
+              async addMuaGiai(){
+                    $('#loadingMore').fadeIn();
+
+                    try{
+
+                        const formData = new FormData();
+                        formData.append('Name', this.Name);
+                        formData.append('TournamentsId', this.TournamentsId);
+                        formData.append('Start', this.Start);
+                        formData.append('End', this.End);
+                        formData.append('Address', this.Address);
+                        formData.append('CompetitionForm', this.CompetitionForm);
+                        formData.append('SeasonRules', this.SeasonRules);
+                        formData.append('TeamsNumber', this.TeamsNumber);
+                        formData.append('MemberOfTeam', this.MemberOfTeam);
+                        formData.append('numberOfRoundsPerMatch', this.numberOfRoundsPerMatch);
+                        formData.append('numberOfRounds', this.numberOfRounds);
+                        formData.append('numberOfCoaches', this.numberOfCoaches);
+                        formData.append('PhoneNumber', this.PhoneNumber);
+                        formData.append('Description', this.Description);
+                        formData.append('TimeFight', this.TimeFight);
+                        formData.append('BackgroudFile', this.$refs.BackgroudFile.files[0]);
+                        formData.append('AvatarFile', this.$refs.AvatarFile.files[0]);
+                        if (this.NumberTeamOnRoud != "" && this.NumberBoard != ""){
+                            formData.append('NumberBoard', this.NumberBoard);
+                            formData.append('NumberTeamOnRoud', this.NumberTeamOnRoud);
+                        }
+                      await axios.post('/add/season/main', formData,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            }).then((response)=>{
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công',
+                                    text: 'Đã lưu thành công',
+                                    confirmButtonText: 'OK'
+                                });
+                            }).finally(() => {
+                                $('#loadingMore').fadeOut();
+                            });
+                  
+
+                    }
+                    catch (error) {
+                        $('#loadingMore').fadeOut();
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Đã có Error xảy ra',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            }
+        });
     </script>
 }

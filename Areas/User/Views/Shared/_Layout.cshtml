@@ -24,11 +24,23 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+
     @RenderSection("Styles", required: false)
 
 
 </head>
 <body>
+    <div class="loading-main" id="loadingMore">
+        <div class="loading-background"></div>
+        <div class="u-loading">
+            <div class="u-loading__symbol">
+               <img src="~/upload/img/main-log.png" />
+            </div>
+        </div>
+    </div>
     <div class="banner-main">
         <div class="container">
             <div class="d-flex justify-content-center flex-column">
@@ -39,15 +51,30 @@
                     <h3>HỆ THỐNG QUẢN LÝ</h3> <br>
                     <h5>GIẢI ĐẤU CHUYÊN NGHIỆP</h5>
                 </div>
-               
-                <div class="d-flex flex-nowrap justify-content-center">
-                    <div class="text-center main-btn">
-                        <button type="submit" class="btn  btn-color px-5 mb-5 w-100">Đăng Nhập</button>
+                @if (ViewBag.user != null)
+                {
+                    <div class="d-flex flex-nowrap justify-content-center">
+                        <div class="text-center main-btn">
+                            <a href="/user/leagues" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Mùa giải</a>
+                        </div>
+                        <div class="text-center main-btn">
+                            <a href="/dang-xuat" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Đăng Xuất</a>
+                        </div> 
+                        
                     </div>
-                    <div class="text-center main-btn">
-                        <button type="submit" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Đăng Ký</button>
+                }
+                else
+                {
+                    <div class="d-flex flex-nowrap justify-content-center">
+                        <div class="text-center main-btn">
+                            <button type="submit" class="btn  btn-color px-5 mb-5 w-100">Đăng Nhập</button>
+                        </div>
+                        <div class="text-center main-btn">
+                            <button type="submit" class="btn btn-outline-info btn-color px-5 mb-5 w-100">Đăng Ký</button>
+                        </div>
                     </div>
-                </div>
+                }
+              
             </div>
 
 
@@ -70,10 +97,11 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="/js/user.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -248,7 +248,7 @@ textarea {
   border-radius: 3px;
   background-color: var(--primaryColor);
   position: absolute;
-  z-index: 1200;
+  z-index: 1000;
   bottom: 0;
   transition: all 0.4s linear;
 }

@@ -6,10 +6,10 @@ namespace vsports.Models.MatchScheduleAndResultsVM
     public class MatchScheduleAndResultsVM:BaseEntity
     {
         public int Id { get; set; }
-        public int SeasonOnTournamentId { get; set; }
+        public int? SeasonOnTournamentId { get; set; }
 
-        public int RoundId { get; set; }
-        public int BoardId { get; set; }
+        public int? RoundId { get; set; }
+        public int? BoardId { get; set; }
 
         public DateTime Schedule { get; set; }
 

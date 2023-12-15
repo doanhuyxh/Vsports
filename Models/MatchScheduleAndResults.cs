@@ -7,15 +7,15 @@ namespace vsports.Models
     {
         [Key] public int Id { get; set; }
 
-        public int SeasonOnTournamentId { get; set; }
+        public int? SeasonOnTournamentId { get; set; }
         [ForeignKey("SeasonOnTournamentId")]
         public SeasonOnTournaments SeasonOnTournaments { get; set; }
 
-        public int RoundId { get; set; }
+        public int? RoundId { get; set; }
         [ForeignKey("RoundId")]
         public Round Round { get; set; }
 
-        public int BoardId { get; set; }
+        public int? BoardId { get; set; }
         [ForeignKey("BoardId")]
         public Board Board { get; set; }
 
@@ -28,6 +28,6 @@ namespace vsports.Models
         public string SportClub2_Name { get; set; }
 
         public string Status { get; set; } //Pending, Playing, Finished, Cancel
-        public string Winner { set; get; } // SportClubId_1 or SportClubId_2
+        public string? Winner { set; get; } // SportClubId_1 or SportClubId_2
     }
 }
