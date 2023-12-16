@@ -8,6 +8,10 @@
 
 }
 
+@{
+    string preBoard = "A";
+}
+
 <div class="row">
     <div class="col-6 col-md-2">
         <div class="box-quick-link blue-background">
@@ -125,8 +129,9 @@
         </thead>
         <tbody>
             @foreach (var match in group)
-            {
-                <tr>
+                {
+                    
+                    <tr>
                     <!-- Hiển thị thông tin của từng trận đấu -->
                     <td>@matchCount</td>
                     <td>@match.Schedule.ToShortDateString()</td>
@@ -165,6 +170,7 @@
                     </td>
                     <!-- Các cột khác -->
                 </tr>
+                preBoard = match.Board.Name;
                 matchCount++;
             }
         </tbody>

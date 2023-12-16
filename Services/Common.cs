@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using System;
 using System.Text;
 using vsports.Data;
 using vsports.Models;
@@ -767,8 +768,6 @@ namespace vsports.Services
                     }
 
                     // vòng loại 1/8
-                    
-
                     // lặp qua từng vòng
                     int rount = 1;
                     while (nameVL.Count > 1)
@@ -835,8 +834,182 @@ namespace vsports.Services
 
 
                     break;
-                    #endregion
+                #endregion
 
+                #region "Tranh cúp"
+                case "Tranh cúp":
+                     
+
+                    //logic giống vòng loại trực tiếp nhưng các đọi sẽ chia làm 2 bảng
+                    List<string> TeamA = new List<string>();
+                    List<string> TeamB = new List<string>();
+
+                    for (int i = 1; i <= numTeams; i++)
+                    {
+                        if (i <= numTeams / 2)
+                        {
+                            TeamA.Add("Team " + i);
+                        }
+                        else
+                        {
+                            TeamB.Add("Team " + i);
+                        }
+                    }
+
+                    // do 2 bảng có cùng số lượng vòng nên chỉ cần tạo só vòng 1 lần
+                    List<Round> roundTC = new List<Round>();
+
+                    // lặp qua từng vòng
+                    int rountTc = 1;
+                    while (TeamA.Count > 1)
+                    {
+
+                        Round vong18 = new Round();
+                        vong18.Created = DateTime.Now;
+                        vong18.IsDelete = false;
+                        vong18.SeasonOnTournamentId = seasionId;
+                        vong18.RoundName = GetRoundName(rountTc);
+                        _context.Add(vong18);
+                        _context.SaveChanges();
+                        
+                        roundTC.Add(vong18);
+
+                        Board _bangA = new Board();
+                        _bangA.Created = DateTime.Now;
+                        _bangA.IsDelete = false;
+                        _bangA.RoundId = vong18.Id;
+                        _bangA.Name = "A";
+                        _context.Add(_bangA);
+                        _context.SaveChanges();
+
+                        // thêm lịch thi đấu bảng A
+                        int matchCount = TeamA.Count / 2;
+                        for (int i = 0; i < matchCount; i++)
+                        {
+                            Console.WriteLine($"{TeamA[i]} vs {TeamA[TeamA.Count - i - 1]}");
+
+                            MatchScheduleAndResults match2 = new MatchScheduleAndResults();
+                            match2.BoardId = _bangA.Id;
+                            match2.RoundId = vong18.Id;
+                            match2.Created = DateTime.Now;
+                            match2.IsDelete = false;
+                            match2.SeasonOnTournamentId = seasionId;
+                            match2.SportClubId_2 = 0;
+                            match2.SportClubId_1 = 0;
+                            match2.SportClub1_Name = TeamA[i];
+                            match2.SportClub2_Name = TeamA[TeamA.Count - i - 1];
+                            match2.Winner = "";
+                            match2.Status = "Pending";
+                            match2.Schedule = DateTime.Now;
+                            _context.Add(match2);
+                            await _context.SaveChangesAsync();
+                        }
+
+                        //Cập nhật danh sách đội cho vòng kế tiếp
+                        List<string> winners = new List<string>();
+                        int matchCountNextRound = TeamA.Count / 2;
+                        for (int i = 0; i < matchCountNextRound; i++)
+                        {
+                            winners.Add((string.Compare(TeamA[i], TeamA[TeamA.Count - i - 1]) < 0) ? TeamA[i] : TeamA[TeamA.Count - i - 1]);
+                        }
+
+                        // Kiểm tra số lẻ và tự động cho một đội vào vòng tiếp theo mà không cần thi đấu
+                        if (TeamA.Count % 2 != 0)
+                        {
+                            winners.Add(TeamA[TeamA.Count / 2]);
+                        }
+                        TeamA = winners;
+                        rountTc++;
+                    }
+
+                    //sử lý bảng B
+                    int rounttemp = 1;
+                    while (TeamB.Count > 1)
+                    {
+
+                        Board bangB = new Board();
+                        bangB.Created = DateTime.Now;
+                        bangB.IsDelete = false;
+                        bangB.RoundId = roundTC[rounttemp-1].Id;
+                        bangB.Name = "B";
+                        _context.Add(bangB);
+                        _context.SaveChanges();
+
+                        // thêm lịch thi đấu bảng A
+                        int matchCount = TeamB.Count / 2;
+                        for (int i = 0; i < matchCount; i++)
+                        {
+                            MatchScheduleAndResults match2 = new MatchScheduleAndResults();
+                            match2.BoardId = bangB.Id;
+                            match2.RoundId = roundTC[rounttemp - 1].Id;
+                            match2.Created = DateTime.Now;
+                            match2.IsDelete = false;
+                            match2.SeasonOnTournamentId = seasionId;
+                            match2.SportClubId_2 = 0;
+                            match2.SportClubId_1 = 0;
+                            match2.SportClub1_Name = TeamB[i];
+                            match2.SportClub2_Name = TeamB[TeamB.Count - i - 1];
+                            match2.Winner = "";
+                            match2.Status = "Pending";
+                            match2.Schedule = DateTime.Now;
+                            _context.Add(match2);
+                            await _context.SaveChangesAsync();
+                        }
+
+                        //Cập nhật danh sách đội cho vòng kế tiếp
+                        List<string> winners = new List<string>();
+                        int matchCountNextRound = TeamB.Count / 2;
+                        for (int i = 0; i < matchCountNextRound; i++)
+                        {
+                            winners.Add((string.Compare(TeamB[i], TeamB[TeamB.Count - i - 1]) < 0) ? TeamB[i] : TeamB[TeamB.Count - i - 1]);
+                        }
+
+                        // Kiểm tra số lẻ và tự động cho một đội vào vòng tiếp theo mà không cần thi đấu
+                        if (TeamB.Count % 2 != 0)
+                        {
+                            winners.Add(TeamB[TeamB.Count / 2]);
+                        }
+                        TeamB = winners;
+                        rounttemp++;
+                    }
+
+                    // vòng cuối cùng giữa 2 bảng
+                    Round db = new Round();
+                    db.Created = DateTime.Now;
+                    db.IsDelete = false;
+                    db.SeasonOnTournamentId = seasionId;
+                    db.RoundName = GetRoundName(roundTC.Count+1);
+                    _context.Add(db);
+                    _context.SaveChanges();
+
+                    roundTC.Add(db);
+
+                    Board bang = new Board();
+                    bang.Created = DateTime.Now;
+                    bang.IsDelete = false;
+                    bang.RoundId = db.Id;
+                    bang.Name = "Bảng chung";
+                    _context.Add(bang);
+                    _context.SaveChanges();
+
+                    MatchScheduleAndResults _match = new MatchScheduleAndResults();
+                    _match.BoardId = bang.Id;
+                    _match.RoundId = db.Id;
+                    _match.Created = DateTime.Now;
+                    _match.IsDelete = false;
+                    _match.SeasonOnTournamentId = seasionId;
+                    _match.SportClubId_2 = 0;
+                    _match.SportClubId_1 = 0;
+                    _match.SportClub1_Name = "Đội nhất bảng A";
+                    _match.SportClub2_Name = "Đội nhất bảng B";
+                    _match.Winner = "";
+                    _match.Status = "Pending";
+                    _match.Schedule = DateTime.Now;
+                    _context.Add(_match);
+                    await _context.SaveChangesAsync();
+
+                    break;
+                    #endregion
 
             }
 
