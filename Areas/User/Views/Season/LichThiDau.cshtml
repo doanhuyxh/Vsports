@@ -1,0 +1,159 @@
+﻿@model vsports.Models.SeasonOnTournamentsVM.SeasonOnTournamentsVM
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+@{
+    int matchCount = 1;
+    // Grouping matches by RoundId
+    var groupedMatches = Model.MatchScheduleAndResults
+        .GroupBy(x => x.RoundId)
+        .ToList();
+}
+<style>
+    .background-red {
+        display: flex;
+        justify-content: center;
+    }
+
+    .title-lich {
+        color: #fff;
+        font-size: 20px;
+        margin-bottom: 4em;
+    }
+
+    .fix-w-h {
+        background-image: url(/assets/img/dc330d79cf92ccb33cfa6c6013af160a.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 1200px;
+        height: auto;
+    }
+
+        .fix-w-h .row {
+            margin: auto;
+            justify-content: center;
+        }
+
+    .time-up {
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+    }
+
+        .time-up p {
+            color: #000;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+    .name-club {
+        background-color: green;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .name-club p {
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+    .img-logo-club {
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+    }
+
+        .img-logo-club img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        .vs p{
+        margin-bottom: 0;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+    }
+</style>
+<div class="d-flex justify-content-center mb-5 mt-4">
+    <button id="download">Tải ảnh</button>
+
+</div>
+
+<div class="background-red">
+
+    <div class="fix-w-h">
+        <div class="text-center title-lich">Lịch thi đấu</div>
+        <div class="row">
+            @foreach (var group in groupedMatches)
+            {
+                @foreach (var match in group)
+                {
+                    <div class="col-5 mb-4">
+                        <div class="d-flex justify-content-between">
+                            <div class="time-up">
+                                <p>@match.Schedule.ToShortTimeString()</p>
+                            </div>
+                            <div class="name-club">
+                                <p>@match.SportClub1_Name</p>
+                            </div>
+                            <div class="img-logo-club">
+                                <img class="img" src="/assets/img/Logo-Haza-49-removebg-preview.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vs col-1 mb-4 d-flex justify-content-center align-items-center">
+                        <p>VS</p>
+                    </div>
+                    <div class="col-5 mb-4">
+                        <div class="d-flex justify-content-between">
+                            <div class="time-up">
+                                <p>@match.Schedule.ToShortTimeString()</p>
+                            </div>
+                            <div class="name-club">
+                                <p class="text-center">@match.SportClub2_Name</p>
+                            </div>
+                            <div class="img-logo-club">
+                                <img class="img" src="/assets/img/Logo-Haza-49-removebg-preview.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                }
+               
+            }
+          
+          
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('download').addEventListener('click', function () {
+        const element = document.querySelector('.fix-w-h');
+
+        // Sử dụng HTML2Canvas để chuyển đổi phần HTML thành hình ảnh
+        html2canvas(element).then(canvas => {
+            // Tạo một đối tượng Image từ hình ảnh được tạo ra
+            const img = new Image();
+            img.src = canvas.toDataURL();
+
+            // Tạo một thẻ <a> để tải về hình ảnh
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'lich_thi_dau.png';
+            link.click();
+        });
+    });
+
+</script>

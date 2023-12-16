@@ -588,7 +588,7 @@ namespace vsports.Services
 
                     // - tạo số lượng vòng đấu
                     List<Round> rounds = new List<Round>();
-                    for (int i = 1; i < groupAFixtures.Count; i++)
+                    for (int i = 1; i <= groupAFixtures.Count; i++)
                     {
                         Round round = new Round();
                         round.IsDelete = false;
@@ -599,13 +599,15 @@ namespace vsports.Services
                         rounds.Add(round);
                     }
 
-                    for (int i = 0; i < rounds.Count; i++)
-                    {
+                    for (int i = 0; i < rounds.Count - 1; i++)
+                     {
                         // chèn lịch đáu vòng loại bảng A
                         Board a = new Board();
                         a.Created = DateTime.Now;
                         a.RoundId = rounds[i].Id;
                         a.Name = "Bảng A";
+                        a.IsDelete = false;
+
                         _context.Add(a);
                         _context.SaveChanges();
                         for (int j = 0; j < groupAFixtures[i].Count; j++)
@@ -619,12 +621,13 @@ namespace vsports.Services
                             match1.SportClubId_2 = 0;
                             match1.SportClubId_1 = 0;
                             match1.SportClub1_Name = groupAFixtures[i][j].Split(' ')[0];
-                            match1.SportClub2_Name = groupAFixtures[i][j].Split(' ')[1];
+                            match1.SportClub2_Name = groupAFixtures[i][j].Split(' ')[2];
                             match1.Winner = "";
                             match1.Status = "Pending";
                             match1.Schedule = DateTime.Now;
                             _context.Add(match1);
-                            await _context.SaveChangesAsync();
+                            _context.SaveChanges();
+
 
                         }
 
@@ -634,8 +637,9 @@ namespace vsports.Services
                         b.Created = DateTime.Now;
                         b.RoundId = rounds[i].Id;
                         b.Name = "Bảng B";
-                        _context.Add(a);
-                        await _context.SaveChangesAsync();
+                        b.IsDelete = false;
+                        _context.Add(b);
+                         _context.SaveChanges();
 
                         for (int j = 0; j < groupBFixtures[i].Count; j++)
                         {
@@ -648,12 +652,12 @@ namespace vsports.Services
                             match2.SportClubId_2 = 0;
                             match2.SportClubId_1 = 0;
                             match2.SportClub1_Name = groupBFixtures[i][j].Split(' ')[0];
-                            match2.SportClub2_Name = groupBFixtures[i][j].Split(' ')[1];
+                            match2.SportClub2_Name = groupBFixtures[i][j].Split(' ')[2];
                             match2.Winner = "";
                             match2.Status = "Pending";
                             match2.Schedule = DateTime.Now;
                             _context.Add(match2);
-                            await _context.SaveChangesAsync();
+                            _context.SaveChanges();
 
                         }
 
@@ -666,7 +670,8 @@ namespace vsports.Services
                     roundn.RoundName = "Vòng bán kết";
                     roundn.SeasonOnTournamentId = seasionId;
                     _context.Add(roundn);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
+
 
 
                     // tạo bảng ảo cho vòng này
@@ -676,7 +681,8 @@ namespace vsports.Services
                     boardn.RoundId = roundn.Id;
                     boardn.Name = "Bảng vòng bán kết";
                     _context.Add(boardn);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
+
 
 
                     // chèn 2 trận cho 2 đội nhất và nhì mỗi bảng gặp nhau
@@ -704,14 +710,35 @@ namespace vsports.Services
                             matchScheduleAndResults.SportClub2_Name = "Đội nhất bảng B";
                         }
                         _context.Add(matchScheduleAndResults);
-                        await _context.SaveChangesAsync();
+                        _context.SaveChanges();
+
 
                     }
 
+                    // chèn lịch sử đâu vòng bán kết
+                    Round ck = new Round();
+                    ck.Created = DateTime.Now;
+                    ck.IsDelete = false;
+                    ck.RoundName = "Vòng chung kết";
+                    ck.SeasonOnTournamentId = seasionId;
+                    _context.Add(ck);
+                    _context.SaveChanges();
+
+
+
+                    // tạo bảng ảo cho vòng này
+                    Board ckboard = new Board();
+                    ckboard.Created = DateTime.Now;
+                    ckboard.IsDelete = false;
+                    ckboard.RoundId = ck.Id;
+                    ckboard.Name = "Bảng chung kết";
+                    _context.Add(ckboard);
+                    _context.SaveChanges();
+
                     // tạo trận chung kết
                     MatchScheduleAndResults matchSchedule = new MatchScheduleAndResults();
-                    matchSchedule.BoardId = boardn.Id;
-                    matchSchedule.RoundId = roundn.Id;
+                    matchSchedule.BoardId = ckboard.Id;
+                    matchSchedule.RoundId = ck.Id;
                     matchSchedule.Created = DateTime.Now;
                     matchSchedule.IsDelete = false;
                     matchSchedule.SeasonOnTournamentId = seasionId;
@@ -723,7 +750,8 @@ namespace vsports.Services
                     matchSchedule.Status = "Pending";
                     matchSchedule.Schedule = DateTime.Now;
                     _context.Add(matchSchedule);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
+
 
                     break;
                 #endregion

@@ -110,7 +110,32 @@ namespace vsports.Controllers
             return View(items);
         }
         // trang chi tiết giải đấu
+        [HttpGet("/get/lichthidau/{id}")]
+        public IActionResult LichThiDau(int id)
+        {
+            ViewBag.user = HttpContext.User.Identity.Name;
 
+            var rs = _context.SeasonOnTournaments
+               .Include(st => st.MatchScheduleAndResults)
+                   .ThenInclude(x => x.Board)
+                       .ThenInclude(x => x.Round)
+               .Where(x => x.Id == id).FirstOrDefault();
+            if (rs != null)
+            {
+
+
+                var items = new SeasonOnTournamentsVM
+                {
+                    SeasonOnTournamentsMain = rs,
+                    MatchScheduleAndResults = rs.MatchScheduleAndResults.ToList()
+                };
+
+
+
+                return View(items);
+            }
+            return View();
+        }
 
     }
 }

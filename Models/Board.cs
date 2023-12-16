@@ -8,7 +8,6 @@ namespace vsports.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
         public int RoundId { get; set; }
         [ForeignKey("RoundId")]
         public Round Round { get; set; }

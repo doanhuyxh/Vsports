@@ -298,8 +298,9 @@ namespace vTournamentss.Areas.Admin.Controllers
                     await _context.SaveChangesAsync();
 
                     json = await _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
-                    json.Data = season;
-                    return Json(new { Code = 200, Message = "Tạo thành công", Data = season });
+                    json.Data = "Success";
+                    json.StatusCode = 200;
+                    return Json(json);
 
 
 
@@ -333,7 +334,7 @@ namespace vTournamentss.Areas.Admin.Controllers
 
                     //tạo lịch thi đáu mới
                     json = await _icommon.CreateSchedule(numTeams, nunBoard, numRound, season.Id, season.CompetitionForm);
-                    json.Data[0] = season;
+                    json.Data = "Success";
                     return Ok(json);
                 }
             }
